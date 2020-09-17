@@ -76,27 +76,27 @@ function App() {
                       Print your documents,&nbsp;
                     </span>
                     <span className="avoidwrap">
-                      available almost 24 hours!<sup className="origin">1</sup>
+                      available almost 24 hours<sup className="origin">1</sup>!
                     </span>
                   </Title>
                   <ol style={{ textAlign: "left" }}>
                     <li>
-                      Register or login to top up your wallet (minimum of 5 EUR,
-                      you can save it for later{" "}
+                      Register or login to top up your wallet (minimum amount of
+                      5 €, you can save it for later{" "}
                       <span role="img" aria-label="smiley-face">
                         😊
                       </span>
-                      ) or see your balance
+                      )
                     </li>
                     <li>
-                      Upload, set up (color and page range), and print your
-                      document
+                      Upload and print your document (you can set color mode and
+                      page range as well)
                     </li>
                     <li>
                       Get your documents at Vogeliusweg 12/12.1.3, 33100
                       Paderborn. See the map below. (Please try not to come
                       after 23.00 and before 6.30, you can still print the
-                      documents and get it later)
+                      documents and get it later though!)
                     </li>
                   </ol>
                   <Paragraph
@@ -106,7 +106,7 @@ function App() {
                   >
                     <sup>1</sup>The service is available from{" "}
                     <b>DUSK TILL DAWN</b> around <b>18.00 - 08.00</b>. Please
-                    see the service health indicator below for realtime status.
+                    see the service health check below for realtime status.
                   </Paragraph>
                   <Row>
                     <Col md={2} />
