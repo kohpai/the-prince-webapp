@@ -39,7 +39,7 @@
   }
 }
 
-sup {
+sup.origin {
   top: -1.25em;
   font-size: 0.45em;
   font-weight: 300;
