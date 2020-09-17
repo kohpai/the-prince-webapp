@@ -44,3 +44,7 @@ sup.origin {
   font-size: 0.45em;
   font-weight: 300;
 }
+
+span.avoidwrap {
+  display: inline-block;
+}
