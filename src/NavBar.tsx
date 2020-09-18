@@ -11,29 +11,29 @@ const validPages = ["home", "about"];
 
 export const NavBar = ({ page }: NavProps) => {
   const [drawerVisibility, setVisibility] = useState(false);
+  const openDrawer = () => {
+    setVisibility(true);
+  };
+
+  const closeDrawer = () => {
+    setVisibility(false);
+  };
   return (
     <>
-      <Button
-        type="primary"
-        onClick={() => {
-          setVisibility(true);
-        }}
-        icon={<MenuUnfoldOutlined />}
-      >
+      <Button type="primary" onClick={openDrawer} icon={<MenuUnfoldOutlined />}>
         Menu
       </Button>
       <Drawer
         title="The Prince"
         placement="left"
         closable={true}
-        onClose={() => {
-          setVisibility(false);
-        }}
+        onClose={closeDrawer}
         visible={drawerVisibility}
       >
         <Menu
           mode="vertical"
           theme="dark"
+          onClick={closeDrawer}
           defaultSelectedKeys={[validPages.includes(page) ? page : "home"]}
         >
           <Menu.Item key="home">
