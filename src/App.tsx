@@ -1,15 +1,12 @@
 import React from "react";
-import { Layout, Typography, Row, Col, Table } from "antd";
+import { Typography, Row, Col, Table } from "antd";
 
-import { AuthUI } from "./AuthUI";
-import { NavBar } from "./NavBar";
+import { PageLayout } from "./PageLayout";
 
-// import logo from "./logo.svg";
 import "./App.css";
 
 type FeatureStatus = "Good" | "Bad";
 
-const { Header, Content, Footer } = Layout;
 const { Title, Paragraph } = Typography;
 
 function App() {
@@ -63,81 +60,58 @@ function App() {
   ];
   return (
     <div className="App">
-      <Row>
-        <Col md={6} />
-        <Col md={12}>
-          <Layout>
-            <Header style={{ padding: "0 1em" }}>
-              <Row>
-                <Col style={{ textAlign: "left" }} span={12}>
-                  <NavBar />
-                </Col>
-                <Col style={{ textAlign: "right" }} span={12}>
-                  <AuthUI />
-                </Col>
-              </Row>
-            </Header>
-            <Content>
-              <Row>
-                <Col span={1} />
-                <Col span={22}>
-                  <Title level={3}>
-                    <span className="avoidwrap">
-                      Print your documents,&nbsp;
-                    </span>
-                    <span className="avoidwrap">
-                      available almost 24 hours<sup className="origin">1</sup>!
-                    </span>
-                  </Title>
-                  <ol style={{ textAlign: "left" }}>
-                    <li>
-                      Sign up or sign in to top up your wallet (minimum amount
-                      of 5 €, you can save it for later{" "}
-                      <span role="img" aria-label="smiley-face">
-                        😊
-                      </span>
-                      )
-                    </li>
-                    <li>
-                      Upload and print your document (you can set color mode and
-                      page range as well)
-                    </li>
-                    <li>
-                      Get your documents at Vogeliusweg 12/12.1.3, 33100
-                      Paderborn. See the map below. (Please try not to come
-                      after 23.00 and before 6.30, you can still print the
-                      documents and get it later though!)
-                    </li>
-                  </ol>
-                  <Paragraph
-                    style={{
-                      textAlign: "left",
-                    }}
-                  >
-                    <sup>1</sup>The service is available from{" "}
-                    <b>DUSK TILL DAWN</b> around <b>18.00 - 08.00</b>. Please
-                    see the service health check below for realtime status.
-                  </Paragraph>
-                  <Row>
-                    <Col md={2} />
-                    <Col md={20}>
-                      <Table
-                        columns={columns}
-                        dataSource={data}
-                        pagination={{ hideOnSinglePage: true }}
-                      />
-                    </Col>
-                    <Col md={2} />
-                  </Row>
-                </Col>
-                <Col span={1} />
-              </Row>
-            </Content>
-            <Footer>Footer</Footer>
-          </Layout>
-        </Col>
-        <Col md={6} />
-      </Row>
+      <PageLayout
+        content={
+          <>
+            <Title level={3}>
+              <span className="avoidwrap">Print your documents,&nbsp;</span>
+              <span className="avoidwrap">
+                available almost 24 hours<sup className="origin">1</sup>!
+              </span>
+            </Title>
+            <ol style={{ textAlign: "left" }}>
+              <li>
+                Sign up or sign in to top up your wallet (minimum amount of 5 €,
+                you can save it for later{" "}
+                <span role="img" aria-label="smiley-face">
+                  😊
+                </span>
+                )
+              </li>
+              <li>
+                Upload and print your document (you can set color mode and page
+                range as well)
+              </li>
+              <li>
+                Get your documents at Vogeliusweg 12/12.1.3, 33100 Paderborn.
+                See the map below. (Please try not to come after 23.00 and
+                before 6.30, you can still print the documents and get it later
+                though!)
+              </li>
+            </ol>
+            <Paragraph
+              style={{
+                textAlign: "left",
+              }}
+            >
+              <sup>1</sup>The service is available from <b>DUSK TILL DAWN</b>{" "}
+              around <b>18.00 - 08.00</b>. Please see the service health check
+              below for realtime status.
+            </Paragraph>
+            <Row>
+              <Col md={2} />
+              <Col md={20}>
+                <Table
+                  columns={columns}
+                  dataSource={data}
+                  pagination={{ hideOnSinglePage: true }}
+                />
+              </Col>
+              <Col md={2} />
+            </Row>
+          </>
+        }
+      />
     </div>
   );
 }
