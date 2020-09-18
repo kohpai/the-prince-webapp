@@ -91,17 +91,11 @@ export const Home = () => {
         <b>18.00 - 08.00</b>. Please see the service health check below for
         realtime status.
       </Paragraph>
-      <Row>
-        <Col md={2} />
-        <Col md={20}>
-          <Table
-            columns={columns}
-            dataSource={data}
-            pagination={{ hideOnSinglePage: true }}
-          />
-        </Col>
-        <Col md={2} />
-      </Row>
+      <Table
+        columns={columns}
+        dataSource={data}
+        pagination={{ hideOnSinglePage: true }}
+      />
     </>
   );
 };
