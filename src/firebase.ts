@@ -3,7 +3,7 @@ import "firebase/analytics";
 import "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCK3BPDyjnfM1EWT3PuAYB0IW_5YDX5iZA",
+  apiKey: "AIzaSyD0qS5DIJRKG32n9K64Le_RrONiDM8WNic",
   authDomain: "the-prince-98130.firebaseapp.com",
   databaseURL: "https://the-prince-98130.firebaseio.com",
   projectId: "the-prince-98130",
