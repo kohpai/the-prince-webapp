@@ -19,7 +19,7 @@ const App = () => {
       <Router>
         <Row>
           <Col md={6} />
-          <Col md={12}>
+          <Col md={12} style={{ flexGrow: 1 }}>
             <Layout>
               <Header style={{ padding: "0 1em" }}>
                 <Row>
