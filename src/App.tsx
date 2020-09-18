@@ -1,6 +1,8 @@
 import React from "react";
 import { Layout, Typography, Row, Col, Table } from "antd";
 
+import { AuthUI } from "./AuthUI";
+
 // import logo from "./logo.svg";
 import "./App.css";
 
@@ -64,8 +66,14 @@ function App() {
         <Col md={6} />
         <Col md={12}>
           <Layout>
-            <Header>
-              <span style={{ color: "whitesmoke" }}>Header</span>
+            <Header style={{ padding: "0 1em" }}>
+              <Row>
+                <Col style={{ textAlign: "left" }} span={12}>
+                </Col>
+                <Col style={{ textAlign: "right" }} span={12}>
+                  <AuthUI />
+                </Col>
+              </Row>
             </Header>
             <Content>
               <Row>
@@ -81,8 +89,8 @@ function App() {
                   </Title>
                   <ol style={{ textAlign: "left" }}>
                     <li>
-                      Register or login to top up your wallet (minimum amount of
-                      5 €, you can save it for later{" "}
+                      Sign up or sign in to top up your wallet (minimum amount
+                      of 5 €, you can save it for later{" "}
                       <span role="img" aria-label="smiley-face">
                         😊
                       </span>
