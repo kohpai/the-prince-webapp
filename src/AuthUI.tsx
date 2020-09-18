@@ -7,26 +7,24 @@ import firebase from "./firebase";
 
 export const AuthUI = () => {
   const [modalVisibility, setVisibility] = useState(false);
+  const openModal = () => {
+    setVisibility(true);
+  };
+  const closeModal = () => {
+    setVisibility(false);
+  };
   return (
     <>
-      <Button
-        type="primary"
-        onClick={() => {
-          setVisibility(true);
-        }}
-      >
+      <Button type="primary" onClick={openModal}>
         <UserOutlined /> Sign up / sign in
       </Button>
       <Modal
         title="Sign up / sign in"
         visible={modalVisibility}
-        onOk={(_) => {
-          setVisibility(false);
-        }}
-        onCancel={(_) => {
-          setVisibility(false);
-        }}
+        onOk={closeModal}
+        onCancel={closeModal}
         okButtonProps={{ hidden: true }}
+        cancelButtonProps={{ hidden: true }}
       >
         <StyledFirebaseAuth
           uiConfig={{
