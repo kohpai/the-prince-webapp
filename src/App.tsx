@@ -4,6 +4,7 @@ import { Layout, Row, Col } from "antd";
 
 import { Home } from "./Home";
 import { About } from "./About";
+import { UserAction } from "./UserAction";
 import { AuthUI } from "./AuthUI";
 import { NavBar } from "./NavBar";
 
@@ -35,6 +36,9 @@ const App = () => {
                   <Col span={1} />
                   <Col span={22}>
                     <Switch>
+                      <Route path="/user">
+                        <UserAction />
+                      </Route>
                       <Route path="/about">
                         <About />
                       </Route>
