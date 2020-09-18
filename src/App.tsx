@@ -2,6 +2,7 @@ import React from "react";
 import { Layout, Typography, Row, Col, Table } from "antd";
 
 import { AuthUI } from "./AuthUI";
+import { NavBar } from "./NavBar";
 
 // import logo from "./logo.svg";
 import "./App.css";
@@ -69,6 +70,7 @@ function App() {
             <Header style={{ padding: "0 1em" }}>
               <Row>
                 <Col style={{ textAlign: "left" }} span={12}>
+                  <NavBar />
                 </Col>
                 <Col style={{ textAlign: "right" }} span={12}>
                   <AuthUI />
