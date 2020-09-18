@@ -3,7 +3,13 @@ import { Button, Drawer, Menu } from "antd";
 import { MenuUnfoldOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 
-export const NavBar = () => {
+interface NavProps {
+  page: string;
+}
+
+const validPages = ["home", "about"];
+
+export const NavBar = ({ page }: NavProps) => {
   const [drawerVisibility, setVisibility] = useState(false);
   return (
     <>
@@ -25,11 +31,15 @@ export const NavBar = () => {
         }}
         visible={drawerVisibility}
       >
-        <Menu mode="vertical" theme="dark">
-          <Menu.Item key="1">
-            <Link to="/">Get started guide</Link>
+        <Menu
+          mode="vertical"
+          theme="dark"
+          defaultSelectedKeys={[validPages.includes(page) ? page : "home"]}
+        >
+          <Menu.Item key="home">
+            <Link to="/home">Get started guide</Link>
           </Menu.Item>
-          <Menu.Item key="2">
+          <Menu.Item key="about">
             <Link to="/about">What's this?</Link>
           </Menu.Item>
         </Menu>
