@@ -105,11 +105,7 @@ const JobRequestForm = () => {
         </Upload>
       </Form.Item>
 
-      <Form.Item
-        label="Color mode"
-        name="colorMode"
-        rules={[{ required: true, message: "Please choose a color mode!" }]}
-      >
+      <Form.Item label="Color mode" name="colorMode">
         <Select
           defaultValue="BLACK"
           // onChange={handleChange}
