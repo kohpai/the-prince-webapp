@@ -48,3 +48,39 @@ sup.origin {
 span.avoidwrap {
   display: inline-block;
 }
+
+.info {
+  text-align: left;
+}
+
+.fill-display-width {
+  flex-grow: 1;
+}
+
+.padding-left-right {
+  padding: 0 1em;
+}
+
+.right-header {
+  text-align: right;
+}
+
+.padding-top {
+  padding-top: 1em;
+}
+
+.expand-space {
+  width: 100%;
+}
+
+.map-iframe {
+  border: 0;
+}
+
+.undo-info {
+  text-align: center;
+}
+
+.icon-contact-size {
+  font-size: 1.5em;
+}

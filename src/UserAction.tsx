@@ -39,7 +39,7 @@ const Balance = ({ balance }: BalanceProps) => {
   return (
     <Collapse>
       <Panel header={`Current balance: ${balance.toString()} €`} key="1">
-        <Space direction="vertical" size="large" style={{ width: "100%" }}>
+        <Space className="expand-space" direction="vertical" size="large">
           <Row>
             <Col span={24}>
               <Title level={4}>Top up your wallet</Title>
@@ -57,7 +57,7 @@ const Balance = ({ balance }: BalanceProps) => {
             </Col>
           </Row>
           <Row>
-            <Col span={24} style={{ textAlign: "center" }}>
+            <Col className="undo-info" span={24}>
               <PayButton amount={amount} />
             </Col>
           </Row>
@@ -180,11 +180,7 @@ const JobList = () => {
 };
 
 export const UserAction = () => (
-  <Space
-    direction="vertical"
-    size="small"
-    style={{ textAlign: "left", width: "100%" }}
-  >
+  <Space className="info expand-space" direction="vertical" size="small">
     <Balance balance={new Big(10.0)} />
     <Divider orientation="left">
       <Title level={4}>Submit a print job</Title>

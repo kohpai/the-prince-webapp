@@ -6,7 +6,7 @@ type FeatureStatus = "Good" | "Bad";
 const { Title, Paragraph } = Typography;
 
 const UserActionFlow = () => (
-  <ol style={{ textAlign: "left" }}>
+  <ol className="info">
     <li>
       Sign up or sign in to top up your wallet (minimum amount of 5 €, you can
       save it for later{" "}
@@ -87,7 +87,7 @@ const ServiceStatus = () => {
 
 export const Home = () => {
   return (
-    <Space direction="vertical" size="large" style={{ width: "100%" }}>
+    <Space className="expand-space" direction="vertical" size="large">
       <Row>
         <Col span={24}>
           <Title level={3}>
@@ -101,11 +101,7 @@ export const Home = () => {
       </Row>
       <Row>
         <Col span={24}>
-          <Paragraph
-            style={{
-              textAlign: "left",
-            }}
-          >
+          <Paragraph className="info">
             <sup>1</sup>The service is available from <b>DUSK TILL DAWN</b>{" "}
             around <b>18.00 - 08.00</b>. Please see the service health check
             below for realtime status.
@@ -114,15 +110,15 @@ export const Home = () => {
         </Col>
       </Row>
       <Row>
-        <Col span={24} style={{ textAlign: "left" }}>
+        <Col className="info" span={24}>
           <Divider orientation="left">
             <Title level={4}>Pick it up here!</Title>
           </Divider>
           <iframe
+            className="map-iframe"
             width="100%"
             height="450"
             title="gmaps"
-            style={{ border: 0 }}
             src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCdAgrKsZH0EVltMS1uOE6sJxIZzB4H1X8&q=Vogeliusweg+12,+33100+Paderborn"
             allowFullScreen={true}
           />
