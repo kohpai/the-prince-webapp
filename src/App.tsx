@@ -31,7 +31,7 @@ const App = () => {
                   </Col>
                 </Row>
               </Header>
-              <Content>
+              <Content style={{ paddingTop: "1em" }}>
                 <Row>
                   <Col span={1} />
                   <Col span={22}>
