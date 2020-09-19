@@ -9,6 +9,7 @@ import { AuthUI } from "./AuthUI";
 import { NavBar } from "./NavBar";
 
 import "./App.css";
+import { FacebookFilled, GoogleCircleFilled } from "@ant-design/icons";
 
 const { Header, Content, Footer } = Layout;
 const App = () => {
@@ -50,7 +51,23 @@ const App = () => {
                   <Col span={1} />
                 </Row>
               </Content>
-              <Footer>Footer</Footer>
+              <Footer style={{ textAlign: "left" }}>
+                Contact us:
+                <a
+                  href="https://www.facebook.com/The-Prince-almost-24-hour-printing-service-115488230299288/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FacebookFilled style={{ width: "4em" }} />
+                </a>
+                <a
+                  href="https://github.com/kohpai"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <GoogleCircleFilled />
+                </a>
+              </Footer>
             </Layout>
           </Col>
           <Col md={6} />
