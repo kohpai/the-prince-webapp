@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { Button, Drawer, Menu } from "antd";
-import { MenuUnfoldOutlined } from "@ant-design/icons";
+import {
+  BookOutlined,
+  MenuUnfoldOutlined,
+  QuestionCircleOutlined,
+} from "@ant-design/icons";
 import { Link } from "react-router-dom";
 
 interface NavProps {
@@ -37,10 +41,14 @@ export const NavBar = ({ page }: NavProps) => {
           defaultSelectedKeys={[validPages.includes(page) ? page : "home"]}
         >
           <Menu.Item key="home">
-            <Link to="/home">Get started guide</Link>
+            <Link to="/home">
+              <BookOutlined /> Get started guide
+            </Link>
           </Menu.Item>
           <Menu.Item key="about">
-            <Link to="/about">What's this?</Link>
+            <Link to="/about">
+              <QuestionCircleOutlined /> What's this?
+            </Link>
           </Menu.Item>
         </Menu>
       </Drawer>
