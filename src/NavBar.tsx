@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { Button, Drawer, Menu } from "antd";
+import { Button, Drawer, Menu, Space } from "antd";
 import {
   BookOutlined,
   MenuUnfoldOutlined,
   QuestionCircleOutlined,
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
+
+import { ContactIcons } from "./ContactIcons";
 
 interface NavProps {
   page: string;
@@ -24,9 +26,16 @@ export const NavBar = ({ page }: NavProps) => {
   };
   return (
     <>
-      <Button type="primary" onClick={openDrawer} icon={<MenuUnfoldOutlined />}>
-        Menu
-      </Button>
+      <Space direction="horizontal">
+        <Button
+          type="primary"
+          onClick={openDrawer}
+          icon={<MenuUnfoldOutlined />}
+        >
+          Menu
+        </Button>
+        <ContactIcons />
+      </Space>
       <Drawer
         title="The Prince"
         placement="left"
