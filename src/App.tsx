@@ -1,6 +1,13 @@
-import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import React, { useState } from "react";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 import { Layout, Row, Col, Divider, Affix } from "antd";
+
+import firebase from "./firebase";
 
 import { Home } from "./Home";
 import { About } from "./About";
@@ -14,7 +21,15 @@ import "./App.css";
 const { Header, Content, Footer } = Layout;
 
 const App = () => {
+  const [user, setUser] = useState<firebase.User | null>(null);
+
   const page = window.location.pathname.substr(1);
+
+  firebase
+    .auth()
+    .onAuthStateChanged((signedInUser) =>
+      signedInUser ? setUser(signedInUser) : setUser(null)
+    );
 
   return (
     <div className="App">
@@ -40,14 +55,19 @@ const App = () => {
                   <Col span={1} />
                   <Col span={22}>
                     <Switch>
-                      <Route path="/user">
-                        <UserAction />
-                      </Route>
+                      {user && (
+                        <Route path="/user">
+                          <UserAction />
+                        </Route>
+                      )}
                       <Route path="/about">
                         <About />
                       </Route>
-                      <Route path="/">
+                      <Route path="/home">
                         <Home />
+                      </Route>
+                      <Route path="/">
+                        <Redirect to="/home" />
                       </Route>
                     </Switch>
                   </Col>
