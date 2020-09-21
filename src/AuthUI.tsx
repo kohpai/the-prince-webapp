@@ -6,12 +6,12 @@ import { UserOutlined } from "@ant-design/icons";
 import firebase from "./firebase";
 
 export const AuthUI = () => {
-  const [modalVisibility, setVisibility] = useState(false);
+  const [modalVisibility, setModalVisibility] = useState(false);
   const openModal = () => {
-    setVisibility(true);
+    setModalVisibility(true);
   };
   const closeModal = () => {
-    setVisibility(false);
+    setModalVisibility(false);
   };
   return (
     <>
