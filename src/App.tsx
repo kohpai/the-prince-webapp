@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { Layout, Row, Col, Divider } from "antd";
+import { Layout, Row, Col, Divider, Affix } from "antd";
 
 import { Home } from "./Home";
 import { About } from "./About";
@@ -23,16 +23,18 @@ const App = () => {
           <Col md={6} />
           <Col md={12} className="fill-display-width">
             <Layout>
-              <Header className="padding-left-right">
-                <Row>
-                  <Col className="info" span={12}>
-                    <NavBar page={page} />
-                  </Col>
-                  <Col className="right-header" span={12}>
-                    <AuthUI />
-                  </Col>
-                </Row>
-              </Header>
+              <Affix offsetTop={0}>
+                <Header className="padding-left-right">
+                  <Row>
+                    <Col className="info" span={12}>
+                      <NavBar page={page} />
+                    </Col>
+                    <Col className="right-header" span={12}>
+                      <AuthUI />
+                    </Col>
+                  </Row>
+                </Header>
+              </Affix>
               <Content className="padding-top">
                 <Row>
                   <Col span={1} />
