@@ -15,7 +15,7 @@ const { Header, Content, Footer } = Layout;
 
 const App = () => {
   const page = window.location.pathname.substr(1);
-  console.log("Kohpai", page);
+
   return (
     <div className="App">
       <Router>
