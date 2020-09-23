@@ -119,7 +119,7 @@ export const Home = () => {
             width="100%"
             height="450"
             title="gmaps"
-            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCdAgrKsZH0EVltMS1uOE6sJxIZzB4H1X8&q=Vogeliusweg+12,+33100+Paderborn"
+            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCdAgrKsZH0EVltMS1uOE6sJxIZzB4H1X8&q=The+Prince:+almost-24-hour+printing+service"
             allowFullScreen={true}
           />
         </Col>
