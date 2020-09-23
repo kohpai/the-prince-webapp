@@ -1,3 +1,3 @@
 export default {
-  API_URL: "https://localhost:8443/upload",
+  API_URL: process.env.REACT_APP_API_URL || "https://localhost:8443",
 };

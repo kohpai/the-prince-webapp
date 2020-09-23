@@ -43,7 +43,7 @@ export const JobRequestForm = () => {
         <Upload
           fileList={fileList}
           accept="application/pdf"
-          action={config.API_URL}
+          action={`${config.API_URL}/upload`}
           headers={{ Authorization: `Bearer ${jwt}` }}
           beforeUpload={async (_) => {
             user && setJWT(await user.getIdToken());
