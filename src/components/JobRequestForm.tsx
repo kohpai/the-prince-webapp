@@ -1,26 +1,29 @@
 import React, { useState } from "react";
-import {
-  InputNumber,
-  Form,
-  Button,
-  Upload,
-  message,
-  Select,
-  Input,
-} from "antd";
+import { InputNumber, Form, Button, Upload, Select, Input } from "antd";
 import { UploadFile } from "antd/lib/upload/interface";
 import {
   PlayCircleTwoTone,
   PrinterOutlined,
   UploadOutlined,
 } from "@ant-design/icons";
+import firebase from "firebase";
+
+import config from "../config";
 
 const { Option } = Select;
 
 export const JobRequestForm = () => {
   const [fileList, updateFileList] = useState<UploadFile<any>[]>([] as any[]);
+  const [user, setUser] = useState<firebase.User | null>(null);
+  const [jwt, setJWT] = useState("");
   const onFinish = () => {};
   const onFinishFailed = () => {};
+
+  firebase
+    .auth()
+    .onAuthStateChanged((signedInUser) =>
+      signedInUser ? setUser(signedInUser) : setUser(null)
+    );
 
   return (
     <Form
@@ -39,12 +42,11 @@ export const JobRequestForm = () => {
       >
         <Upload
           fileList={fileList}
-          beforeUpload={(file) => {
-            if (file.type !== "application/pdf") {
-              message.error(`${file.name} is not a PDF file`);
-              return false;
-            }
-            return true;
+          accept="application/pdf"
+          action={config.API_URL}
+          headers={{ Authorization: `Bearer ${jwt}` }}
+          beforeUpload={async (_) => {
+            user && setJWT(await user.getIdToken());
           }}
           onChange={(info) => {
             console.log(info.fileList);
@@ -56,10 +58,7 @@ export const JobRequestForm = () => {
       </Form.Item>
 
       <Form.Item label="Color mode" name="colorMode">
-        <Select
-          defaultValue="BLACK"
-          // onChange={handleChange}
-        >
+        <Select defaultValue="BLACK">
           <Option value="BLACK">Black {"&"} White</Option>
           <Option value="COLOR">Color</Option>
         </Select>
