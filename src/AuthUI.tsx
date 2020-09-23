@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
-import { Modal, Button, Dropdown, Menu } from "antd";
+import { Modal, Button, Dropdown, Menu, Typography } from "antd";
 import {
   LogoutOutlined,
   PrinterOutlined,
@@ -9,6 +9,9 @@ import {
 
 import firebase from "./firebase";
 import { Link, Redirect } from "react-router-dom";
+import { ContactIcons } from "./ContactIcons";
+
+const { Title, Paragraph } = Typography;
 
 export const AuthUI = () => {
   const [modalVisibility, setModalVisibility] = useState(false);
@@ -64,6 +67,7 @@ export const AuthUI = () => {
         <UserOutlined /> Sign up / sign in
       </Button>
       <Modal
+        className="undo-info"
         title="Sign up / sign in"
         visible={modalVisibility}
         onOk={closeModal}
@@ -71,6 +75,15 @@ export const AuthUI = () => {
         okButtonProps={{ hidden: true }}
         cancelButtonProps={{ hidden: true }}
       >
+        <Title level={3}>Thank you for your interest!</Title>
+        <Paragraph>
+          <span className="avoidwrap">
+            We're working our ass off to launch this service.&nbsp;
+          </span>
+          <span className="avoidwrap">
+            Sign up now, and we'll email you as soon as our service is ready!
+          </span>
+        </Paragraph>
         <StyledFirebaseAuth
           uiConfig={{
             signInFlow: "popup",
@@ -90,6 +103,12 @@ export const AuthUI = () => {
           }}
           firebaseAuth={firebase.auth()}
         />
+        <Paragraph>
+          <em>
+            Note: while you're here, you can play around with the website and
+            send us feedback via <ContactIcons />.
+          </em>
+        </Paragraph>
       </Modal>
     </>
   );
