@@ -14,7 +14,7 @@ export const ContactIcons = () => (
     </a>
     <a
       className="icon-contact-size"
-      href="https://github.com/kohpai"
+      href="https://goo.gl/maps/1mkUKmvyn7JZHDJ68"
       target="_blank"
       rel="noopener noreferrer"
     >
