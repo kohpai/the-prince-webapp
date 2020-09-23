@@ -7,7 +7,7 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 
-import firebase from "./firebase";
+import firebase from "../lib/firebase";
 import { Link, Redirect } from "react-router-dom";
 import { ContactIcons } from "./ContactIcons";
 

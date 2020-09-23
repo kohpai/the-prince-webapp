@@ -8,7 +8,7 @@ import {
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 
-import firebase from "./firebase";
+import firebase from "../lib/firebase";
 import { ContactIcons } from "./ContactIcons";
 
 interface NavProps {

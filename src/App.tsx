@@ -7,14 +7,16 @@ import {
 } from "react-router-dom";
 import { Layout, Row, Col, Divider, Affix } from "antd";
 
-import firebase from "./firebase";
+import firebase from "./lib/firebase";
 
-import { Home } from "./Home";
-import { About } from "./About";
-import { UserAction } from "./UserAction";
-import { AuthUI } from "./AuthUI";
-import { NavBar } from "./NavBar";
-import { ContactIcons } from "./ContactIcons";
+import {
+  Home,
+  About,
+  UserAction,
+  AuthUI,
+  NavBar,
+  ContactIcons,
+} from "./components";
 
 import "./App.css";
 
