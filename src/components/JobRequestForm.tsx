@@ -49,7 +49,6 @@ export const JobRequestForm = () => {
             user && setJWT(await user.getIdToken());
           }}
           onChange={(info) => {
-            console.log(info.fileList);
             updateFileList(info.fileList.filter((file) => !!file.status));
           }}
         >
