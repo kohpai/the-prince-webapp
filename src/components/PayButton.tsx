@@ -5,6 +5,7 @@ import { useMutation, gql } from "@apollo/client";
 import { message, Modal } from "antd";
 
 import { Loading } from "./Loading";
+import config from "../config";
 
 interface PayProps {
   amount: Big;
@@ -54,9 +55,8 @@ export const PayButton = ({ amount, newBalance }: PayProps) => {
           }
         }}
         options={{
-          currency: "EUR",
-          clientId:
-            "AWhf7-rhZ4ySjSb7Q1xqTG_sIxZ3zjJTiqmU8sqP1AnEIT82ZI8_O046k6Hwi6jbpvzKkRQtZ_1UEiNs",
+          currency: config.paypal.CURRENCY,
+          clientId: config.paypal.CLIENT_ID,
         }}
       />
       <Modal
