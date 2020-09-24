@@ -1,6 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Big from "big.js";
-import { Collapse, InputNumber, Row, Col, Space, Typography } from "antd";
+import {
+  Collapse,
+  InputNumber,
+  Row,
+  Col,
+  Space,
+  Typography,
+  message,
+} from "antd";
 import { gql, useMutation } from "@apollo/client";
 
 import { PayButton } from "./PayButton";
@@ -25,7 +33,12 @@ export const Balance = () => {
   useEffect(() => {
     const main = async () => {
       const { data, errors } = await currentUser();
-      console.log("kohpai-errors", errors);
+
+      if (errors) {
+        message.error(`Failed to get your balance: ${errors[0].message}`, 0);
+        return;
+      }
+
       setBalance(new Big(data.currentUser.customer.balance));
     };
     main();
@@ -55,7 +68,13 @@ export const Balance = () => {
           </Row>
           <Row>
             <Col className="undo-info" span={24}>
-              <PayButton amount={amount} newBalance={setBalance} />
+              <PayButton
+                amount={amount}
+                newBalance={(b) => {
+                  setBalance(b);
+                  message.success("Your balance is adjusted.");
+                }}
+              />
             </Col>
           </Row>
         </Space>
