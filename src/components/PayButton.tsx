@@ -1,16 +1,41 @@
 import Big from "big.js";
 import React from "react";
 import { PayPalButton } from "react-paypal-button-v2";
+import { useMutation, gql } from "@apollo/client";
 
 interface PayProps {
   amount: Big;
+  newBalance?: (balance: Big) => void;
 }
 
-export const PayButton = ({ amount }: PayProps) => {
+const TOP_UP = gql`
+  mutation TopUp($orderId: String!, $amount: Float!) {
+    topUp(input: { orderId: $orderId, amount: $amount }) {
+      customer {
+        balance
+      }
+    }
+  }
+`;
+
+export const PayButton = ({ amount, newBalance }: PayProps) => {
+  const [topUp] = useMutation(TOP_UP);
+
   return (
     <PayPalButton
       amount={amount.toString()}
-      onSuccess={(details: any, data: any) => console.log(details, data)}
+      onApprove={async ({ orderID }: any) => {
+        const { data, errors } = await topUp({
+          variables: {
+            orderId: orderID,
+            amount: parseFloat(amount.toString()),
+          },
+        });
+        console.log("kohpai-errors", errors);
+        if (newBalance) {
+          newBalance(new Big(data.topUp.customer.balance));
+        }
+      }}
       options={{
         currency: "EUR",
         clientId:

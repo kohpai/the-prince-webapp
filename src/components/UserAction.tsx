@@ -1,6 +1,5 @@
 import React from "react";
 import { Space, Typography, Divider, Table } from "antd";
-import Big from "big.js";
 
 import { Balance } from "./Balance";
 import { JobRequestForm } from "./JobRequestForm";
@@ -49,7 +48,7 @@ export const UserAction = () => {
 
   return (
     <Space className="info expand-space" direction="vertical" size="small">
-      <Balance balance={new Big(10.0)} />
+      <Balance />
       <Divider orientation="left">
         <Title level={4}>Submit a print job</Title>
       </Divider>

@@ -1,19 +1,38 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Big from "big.js";
 import { Collapse, InputNumber, Row, Col, Space, Typography } from "antd";
+import { gql, useMutation } from "@apollo/client";
 
 import { PayButton } from "./PayButton";
-
-interface BalanceProps {
-  balance: Big;
-}
 
 const { Panel } = Collapse;
 const { Title } = Typography;
 
-export const Balance = ({ balance }: BalanceProps) => {
+const CURRENT_USER = gql`
+  mutation CurrentUser {
+    currentUser(input: {}) {
+      customer {
+        balance
+      }
+    }
+  }
+`;
+
+export const Balance = () => {
   const minAmount = 5;
+  const [currentUser] = useMutation(CURRENT_USER);
+  const [balance, setBalance] = useState<Big>(new Big(0));
+  useEffect(() => {
+    const main = async () => {
+      const { data, errors } = await currentUser();
+      console.log("kohpai-errors", errors);
+      setBalance(new Big(data.currentUser.customer.balance));
+    };
+    main();
+  }, [currentUser]);
+
   const [amount, setAmount] = useState(new Big(minAmount));
+
   return (
     <Collapse>
       <Panel header={`Current balance: ${balance.toString()} €`} key="1">
@@ -36,7 +55,7 @@ export const Balance = ({ balance }: BalanceProps) => {
           </Row>
           <Row>
             <Col className="undo-info" span={24}>
-              <PayButton amount={amount} />
+              <PayButton amount={amount} newBalance={setBalance} />
             </Col>
           </Row>
         </Space>
