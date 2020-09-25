@@ -48,7 +48,12 @@ export const Balance = () => {
 
   return (
     <Collapse>
-      <Panel header={`Current balance: ${balance.toString()} €`} key="1">
+      <Panel
+        header={
+          <Title level={4}>Current balance: {balance.toString()} €</Title>
+        }
+        key="1"
+      >
         <Space className="expand-space" direction="vertical" size="large">
           <Row>
             <Col span={24}>
