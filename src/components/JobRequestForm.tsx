@@ -56,10 +56,6 @@ function parsePageRange(pr: string): number {
 
   return trimmedPr.split(",").reduce((numPages, range) => {
     const rangeList = range.split("-");
-    if (rangeList.length > 2) {
-      throw err;
-    }
-
     if (rangeList.length > 1) {
       const start = parseInt(rangeList[0]);
       const end = parseInt(rangeList[1]);
