@@ -6,4 +6,8 @@ export default {
       "AWhf7-rhZ4ySjSb7Q1xqTG_sIxZ3zjJTiqmU8sqP1AnEIT82ZI8_O046k6Hwi6jbpvzKkRQtZ_1UEiNs",
     CURRENCY: process.env.REACT_APP_PAYPAL_CURRENCY || "EUR",
   },
+  printer: {
+    BLACK_CPP: 0.08,
+    COLOR_CPP: 0.11,
+  },
 };
