@@ -201,7 +201,7 @@ export const JobRequestForm = () => {
           onChange={(value) => {
             const printConfig = {
               ...printPrice.config,
-              numCopies: value as number,
+              numCopies: +(value || 1),
             };
             setPrincePrice({
               config: printConfig,
