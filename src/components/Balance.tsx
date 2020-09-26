@@ -77,7 +77,7 @@ export const Balance = () => {
                 amount={amount}
                 newBalance={(b) => {
                   setBalance(b);
-                  message.success("Your balance is adjusted.");
+                  message.success("Your balance is adjusted.", 3);
                 }}
               />
             </Col>
