@@ -28,7 +28,7 @@ const columns = [
     title: "Requested at",
     dataIndex: "createdAt",
     key: "createdAt",
-    render: (date: Date) => date.toLocaleTimeString(),
+    render: (date: Date) => date.toLocaleString(),
   },
 ];
 
