@@ -9,7 +9,7 @@ import config from "../config";
 
 interface PayProps {
   amount: Big;
-  newBalance?: (balance: Big) => void;
+  onBalanceUpdate?(balance: Big): void;
 }
 
 const TOP_UP = gql`
@@ -22,7 +22,7 @@ const TOP_UP = gql`
   }
 `;
 
-export const PayButton = ({ amount, newBalance }: PayProps) => {
+export const PayButton = ({ amount, onBalanceUpdate }: PayProps) => {
   const [loading, setLoading] = useState(false);
   const [topUp] = useMutation(TOP_UP);
 
@@ -50,8 +50,8 @@ export const PayButton = ({ amount, newBalance }: PayProps) => {
             return;
           }
 
-          if (newBalance) {
-            newBalance(new Big(data.topUp.customer.balance));
+          if (onBalanceUpdate) {
+            onBalanceUpdate(new Big(data.topUp.customer.balance));
           }
         }}
         options={{

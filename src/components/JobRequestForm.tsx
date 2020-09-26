@@ -22,6 +22,7 @@ import Big from "big.js";
 import config from "../config";
 import { gql, useMutation } from "@apollo/client";
 import { Loading } from "./Loading";
+import { PrintJob } from "./commonTypes";
 
 interface PrintConfig {
   colorMode: "BLACK" | "COLOR";
@@ -33,6 +34,11 @@ interface PrintConfig {
 interface PrintPrice {
   config: PrintConfig;
   price: Big;
+}
+
+interface JobRequestFormProps {
+  onBalanceUpdate?(balance: Big): void;
+  onNewPrintJob?(printJob: PrintJob): void;
 }
 
 const { Option } = Select;
@@ -92,7 +98,10 @@ function parsePageRange(pr: string): number {
   }, 0);
 }
 
-export const JobRequestForm = () => {
+export const JobRequestForm = ({
+  onBalanceUpdate,
+  onNewPrintJob,
+}: JobRequestFormProps) => {
   const [fileList, updateFileList] = useState<UploadFile<any>[]>([] as any[]);
   const [user, setUser] = useState<firebase.User | null>(null);
   const [jwt, setJWT] = useState("");
@@ -122,12 +131,17 @@ export const JobRequestForm = () => {
 
     if (errors) {
       message.error(`Failed to sumbit the print job: ${errors[0].message}`, 0);
-    } else {
-      message.success(
-        `Job ID ${data.submitPrintJob.printJob.id} is submitted`,
-        3
-      );
+      return;
     }
+
+    const printJob = data.submitPrintJob.printJob;
+    onBalanceUpdate && onBalanceUpdate(new Big(printJob.customer.balance));
+    onNewPrintJob &&
+      onNewPrintJob({
+        id: printJob.id,
+        status: "PLACED",
+        createdAt: new Date(printJob.createdAt),
+      });
   };
 
   firebase
