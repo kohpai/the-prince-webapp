@@ -1,8 +1,10 @@
 import React from "react";
-import { Typography, Table, Row, Col, Space, Divider } from "antd";
+import { Typography, Table, Row, Col, Space, Divider, Image } from "antd";
 
 import { Loading } from "./Loading";
 import { HealthStats } from "./commonTypes";
+import minusImg from "../assets/minus.png";
+import checkedImg from "../assets/checked.png";
 
 interface ServiceStatusProps {
   healthStats?: HealthStats;
@@ -33,15 +35,7 @@ const columns = [
     dataIndex: "status",
     key: "status",
     render: (status: boolean) =>
-      status ? (
-        <span role="img" aria-label="smiley-face">
-          ✔️
-        </span>
-      ) : (
-        <span role="img" aria-label="smiley-face">
-          ❌
-        </span>
-      ),
+      status ? <Image src={checkedImg} /> : <Image src={minusImg} />,
   },
   {
     title: "Last check",
