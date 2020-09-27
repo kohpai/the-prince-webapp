@@ -36,7 +36,7 @@ export const AuthUI = () => {
       {redirecting && <Redirect to="/user" />}
       <Dropdown
         placement="bottomRight"
-        trigger={["hover", "click"]}
+        trigger={["click"]}
         overlay={
           <Menu>
             <Menu.Item>
