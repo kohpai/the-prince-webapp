@@ -119,6 +119,7 @@ export const UserAction = ({ healthStats }: UserActionProps) => {
         )}
       </Divider>
       <JobRequestForm
+        healthStats={healthStats}
         onBalanceUpdate={(b) => {
           setBalance(b);
           message.success("Your balance is adjusted.", 3);
