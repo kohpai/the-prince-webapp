@@ -41,6 +41,7 @@ const CURRENT_USER = gql`
           nodes {
             id
             createdAt
+            status
           }
         }
       }
@@ -71,7 +72,6 @@ export const UserAction = () => {
           ...job,
           createdAt: new Date(job.createdAt),
           key: `${job.id}`,
-          status: "PLACED",
         }))
       );
     };

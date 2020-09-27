@@ -53,6 +53,7 @@ const SUBMIT_PRINT_JOB = gql`
       printJob {
         id
         createdAt
+        status
         customer {
           balance
         }
@@ -139,7 +140,7 @@ export const JobRequestForm = ({
     onNewPrintJob &&
       onNewPrintJob({
         id: printJob.id,
-        status: "PLACED",
+        status: printJob.status,
         createdAt: new Date(printJob.createdAt),
       });
   };
