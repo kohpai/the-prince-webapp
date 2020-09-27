@@ -1,23 +1,36 @@
 import React from "react";
-import { Col, Row, Space, Spin } from "antd";
+import { Col, Row, Space, Spin, Modal } from "antd";
 
 interface LoadingProps {
+  title: string;
   text?: string;
+  loading: boolean;
+  onFinish?(): void;
 }
 
-export const Loading = ({ text }: LoadingProps) => {
+export const Loading = ({ title, text, loading, onFinish }: LoadingProps) => {
   return (
-    <Space direction="vertical">
-      <Row>
-        <Col span={24}>
-          <Spin size="large" />
-        </Col>
-      </Row>
-      {text && (
+    <Modal
+      className="undo-info"
+      title={title}
+      visible={loading}
+      okButtonProps={{ hidden: true }}
+      cancelButtonProps={{ hidden: true }}
+      closable={false}
+      afterClose={onFinish}
+    >
+      <Space direction="vertical">
         <Row>
-          <Col span={24}>{text}</Col>
+          <Col span={24}>
+            <Spin size="large" />
+          </Col>
         </Row>
-      )}
-    </Space>
+        {text && (
+          <Row>
+            <Col span={24}>{text}</Col>
+          </Row>
+        )}
+      </Space>
+    </Modal>
   );
 };

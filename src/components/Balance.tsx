@@ -3,18 +3,24 @@ import Big from "big.js";
 import { Collapse, InputNumber, Row, Col, Space, Typography } from "antd";
 
 import { PayButton } from "./PayButton";
+import { HealthStats } from "./commonTypes";
 
 interface BalanceProps {
+  healthStats?: HealthStats;
   balance: Big;
   onBalanceUpdate(balance: Big): void;
 }
 
 const { Panel } = Collapse;
-const { Title } = Typography;
+const { Title, Paragraph } = Typography;
 
 const minAmount = 5;
 
-export const Balance = ({ balance, onBalanceUpdate }: BalanceProps) => {
+export const Balance = ({
+  healthStats,
+  balance,
+  onBalanceUpdate,
+}: BalanceProps) => {
   const [amount, setAmount] = useState(new Big(minAmount));
 
   return (
@@ -37,6 +43,7 @@ export const Balance = ({ balance, onBalanceUpdate }: BalanceProps) => {
                   decimalSeparator=","
                   precision={2}
                   onChange={(val) => setAmount(new Big(val || 0))}
+                  disabled={!Boolean(healthStats)}
                 />
                 €.
               </Space>
@@ -44,7 +51,17 @@ export const Balance = ({ balance, onBalanceUpdate }: BalanceProps) => {
           </Row>
           <Row>
             <Col className="undo-info" span={24}>
-              <PayButton amount={amount} onBalanceUpdate={onBalanceUpdate} />
+              {healthStats ? (
+                <PayButton amount={amount} onBalanceUpdate={onBalanceUpdate} />
+              ) : (
+                <Paragraph>
+                  You cannot top up your wallet while the server is not online{" "}
+                  <span role="img" aria-label="grinning-face">
+                    😞
+                  </span>
+                  . Please check the status in home page and try again.
+                </Paragraph>
+              )}
             </Col>
           </Row>
         </Space>

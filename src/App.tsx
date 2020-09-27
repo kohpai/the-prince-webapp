@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { gql, useQuery } from "@apollo/client";
 import {
   BrowserRouter as Router,
   Switch,
@@ -22,8 +23,18 @@ import "./App.css";
 
 const { Header, Content, Footer } = Layout;
 
+const HEALTH_STATS = gql`
+  query HealthStats {
+    healthStats {
+      printerConnected
+      welcome
+    }
+  }
+`;
+
 const App = () => {
   const [user, setUser] = useState<firebase.User | null>(null);
+  const { data, loading } = useQuery(HEALTH_STATS);
 
   const page = window.location.pathname.substr(1);
 
@@ -59,14 +70,17 @@ const App = () => {
                     <Switch>
                       {user && (
                         <Route path="/user">
-                          <UserAction />
+                          <UserAction healthStats={data && data.healthStats} />
                         </Route>
                       )}
                       <Route path="/about">
                         <About />
                       </Route>
                       <Route path="/home">
-                        <Home />
+                        <Home
+                          loading={loading}
+                          healthStats={data && data.healthStats}
+                        />
                       </Route>
                       <Route path="/">
                         <Redirect to="/home" />

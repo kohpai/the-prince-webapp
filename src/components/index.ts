@@ -4,5 +4,6 @@ import { UserAction } from "./UserAction";
 import { AuthUI } from "./AuthUI";
 import { NavBar } from "./NavBar";
 import { ContactIcons } from "./ContactIcons";
+import { Loading } from "./Loading";
 
-export { Home, About, UserAction, AuthUI, NavBar, ContactIcons };
+export { Home, About, UserAction, AuthUI, NavBar, ContactIcons, Loading };

@@ -5,3 +5,8 @@ export interface PrintJob {
   status: JobStatus;
   createdAt: Date;
 }
+
+export interface HealthStats {
+  printerConnected: boolean;
+  welcome: boolean;
+}

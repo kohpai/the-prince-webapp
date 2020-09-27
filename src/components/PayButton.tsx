@@ -2,7 +2,7 @@ import Big from "big.js";
 import React, { useState } from "react";
 import { PayPalButton } from "react-paypal-button-v2";
 import { useMutation, gql } from "@apollo/client";
-import { message, Modal } from "antd";
+import { message } from "antd";
 
 import { Loading } from "./Loading";
 import config from "../config";
@@ -33,12 +33,21 @@ export const PayButton = ({ amount, onBalanceUpdate }: PayProps) => {
         onApprove={async ({ orderID }: any) => {
           setLoading(true);
 
-          const { data, errors } = await topUp({
-            variables: {
-              orderId: orderID,
-              amount: parseFloat(amount.toString()),
-            },
-          });
+          let mutationResult: any;
+          try {
+            mutationResult = await topUp({
+              variables: {
+                orderId: orderID,
+                amount: parseFloat(amount.toString()),
+              },
+            });
+          } catch (err) {
+            setLoading(false);
+            message.error(err.message);
+            return;
+          }
+
+          const { data, errors } = mutationResult;
 
           setLoading(false);
 
@@ -59,16 +68,11 @@ export const PayButton = ({ amount, onBalanceUpdate }: PayProps) => {
           clientId: config.paypal.CLIENT_ID,
         }}
       />
-      <Modal
-        className="undo-info"
+      <Loading
         title="Topping up your wallet"
-        visible={loading}
-        okButtonProps={{ hidden: true }}
-        cancelButtonProps={{ hidden: true }}
-        closable={false}
-      >
-        <Loading text="Please wait while we're adjusting your new balance." />
-      </Modal>
+        loading={loading}
+        text="Please wait while we're adjusting your new balance."
+      />
     </>
   );
 };

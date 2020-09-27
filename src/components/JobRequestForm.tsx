@@ -7,7 +7,6 @@ import {
   Select,
   Input,
   Typography,
-  Modal,
   message,
 } from "antd";
 import { UploadFile } from "antd/lib/upload/interface";
@@ -22,7 +21,7 @@ import Big from "big.js";
 import config from "../config";
 import { gql, useMutation } from "@apollo/client";
 import { Loading } from "./Loading";
-import { PrintJob } from "./commonTypes";
+import { HealthStats, PrintJob } from "./commonTypes";
 
 interface PrintConfig {
   colorMode: "BLACK" | "COLOR";
@@ -37,6 +36,7 @@ interface PrintPrice {
 }
 
 interface JobRequestFormProps {
+  healthStats?: HealthStats;
   onBalanceUpdate?(balance: Big): void;
   onNewPrintJob?(printJob: PrintJob): void;
 }
@@ -100,9 +100,11 @@ function parsePageRange(pr: string): number {
 }
 
 export const JobRequestForm = ({
+  healthStats,
   onBalanceUpdate,
   onNewPrintJob,
 }: JobRequestFormProps) => {
+  const printerConnected = healthStats && healthStats.printerConnected;
   const [fileList, updateFileList] = useState<UploadFile<any>[]>([] as any[]);
   const [user, setUser] = useState<firebase.User | null>(null);
   const [jwt, setJWT] = useState("");
@@ -121,12 +123,21 @@ export const JobRequestForm = ({
   const onFinish = async () => {
     setLoading(true);
 
-    const { data, errors } = await submitPrintJob({
-      variables: {
-        filename: fileList[0].name,
-        printConfig: printPrice.config,
-      },
-    });
+    let mutationResult: any;
+    try {
+      mutationResult = await submitPrintJob({
+        variables: {
+          filename: fileList[0].name,
+          printConfig: printPrice.config,
+        },
+      });
+    } catch (err) {
+      setLoading(false);
+      message.error(err.message);
+      return;
+    }
+
+    const { data, errors } = mutationResult;
 
     setLoading(false);
 
@@ -192,7 +203,9 @@ export const JobRequestForm = ({
               }
             }}
           >
-            <Button icon={<UploadOutlined />}>Upload your document</Button>
+            <Button icon={<UploadOutlined />} disabled={!printerConnected}>
+              Upload your document
+            </Button>
           </Upload>
         </Form.Item>
 
@@ -206,6 +219,7 @@ export const JobRequestForm = ({
                 price: calculatePrintPrice(printConfig),
               });
             }}
+            disabled={!printerConnected}
           >
             <Option value="BLACK">Black {"&"} White</Option>
             <Option value="COLOR">Color</Option>
@@ -245,6 +259,7 @@ export const JobRequestForm = ({
                 });
               } catch {}
             }}
+            disabled={!printerConnected}
           />
         </Form.Item>
 
@@ -262,6 +277,7 @@ export const JobRequestForm = ({
                 price: calculatePrintPrice(printConfig),
               });
             }}
+            disabled={!printerConnected}
           />
         </Form.Item>
 
@@ -278,22 +294,17 @@ export const JobRequestForm = ({
         </Form.Item>
 
         <Form.Item label={<PlayCircleTwoTone />}>
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" htmlType="submit" disabled={!printerConnected}>
             <PrinterOutlined />
             Print
           </Button>
         </Form.Item>
       </Form>
-      <Modal
-        className="undo-info"
+      <Loading
+        loading={loading}
         title="Submitting print job"
-        visible={loading}
-        okButtonProps={{ hidden: true }}
-        cancelButtonProps={{ hidden: true }}
-        closable={false}
-      >
-        <Loading text="Please wait while we're submitting your print job." />
-      </Modal>
+        text="Please wait while we're submitting your print job."
+      />
     </>
   );
 };
