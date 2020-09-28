@@ -75,7 +75,7 @@ export const AuthUI = () => {
         okButtonProps={{ hidden: true }}
         cancelButtonProps={{ hidden: true }}
       >
-        <Title level={3}>Thank you for your interest!</Title>
+        {/* <Title level={3}>Thank you for your interest!</Title>
         <Paragraph>
           <span className="avoidwrap">
             We're working our ass off to launch this service.&nbsp;
@@ -83,7 +83,7 @@ export const AuthUI = () => {
           <span className="avoidwrap">
             Sign up now, and we'll email you as soon as our service is ready!
           </span>
-        </Paragraph>
+        </Paragraph> */}
         <StyledFirebaseAuth
           uiConfig={{
             signInFlow: "popup",
@@ -103,12 +103,12 @@ export const AuthUI = () => {
           }}
           firebaseAuth={firebase.auth()}
         />
-        <Paragraph>
+        {/* <Paragraph>
           <em>
             Note: while you're here, you can play around with the website and
             send us feedback via <ContactIcons />.
           </em>
-        </Paragraph>
+        </Paragraph> */}
       </Modal>
     </>
   );
