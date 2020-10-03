@@ -1,4 +1,4 @@
-type JobStatus = "PLACED" | "EXECUTED" | "FAILED";
+export type JobStatus = "PLACED" | "EXECUTED" | "FAILED";
 
 export interface PrintJob {
   id: number;
