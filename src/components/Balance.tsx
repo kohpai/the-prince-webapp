@@ -58,7 +58,7 @@ export const Balance = ({
                   <span role="img" aria-label="grinning-face">
                     😞
                   </span>
-                  . Überprüfe den Status auf der Homepage und probier es
+                  . Überprüfe den Status auf der Homepage und probiere es
                   nochmal.
                 </Paragraph>
               )}
