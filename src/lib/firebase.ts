@@ -17,9 +17,4 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 
-const remoteConfig = firebase.remoteConfig();
-remoteConfig.settings.fetchTimeoutMillis = 10000;
-
 export default firebase;
-
-export { firebase, remoteConfig };
