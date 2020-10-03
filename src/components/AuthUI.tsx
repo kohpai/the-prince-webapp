@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
-import { Modal, Button, Dropdown, Menu, Typography } from "antd";
+import { Modal, Button, Dropdown, Menu } from "antd";
 import {
   LogoutOutlined,
   PrinterOutlined,
@@ -9,9 +9,6 @@ import {
 
 import firebase from "../lib/firebase";
 import { Link, Redirect } from "react-router-dom";
-import { ContactIcons } from "./ContactIcons";
-
-const { Title, Paragraph } = Typography;
 
 export const AuthUI = () => {
   const [modalVisibility, setModalVisibility] = useState(false);
