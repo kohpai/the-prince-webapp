@@ -142,7 +142,10 @@ export const JobRequestForm = ({
     setLoading(false);
 
     if (errors) {
-      message.error(`Failed to sumbit the print job: ${errors[0].message}`, 0);
+      message.error(
+        `Druckauftrag konnte nicht eingereicht werden: ${errors[0].message}`,
+        0
+      );
       return;
     }
 
@@ -173,9 +176,11 @@ export const JobRequestForm = ({
         colon={false}
       >
         <Form.Item
-          label="PDF file"
+          label="PDF Datei"
           name="filename"
-          rules={[{ required: true, message: "Please upload a PDF file!" }]}
+          rules={[
+            { required: true, message: "Bitte lade eine PDF Datei hoch" },
+          ]}
         >
           <Upload
             fileList={fileList}
@@ -204,12 +209,12 @@ export const JobRequestForm = ({
             }}
           >
             <Button icon={<UploadOutlined />} disabled={!printerConnected}>
-              Upload your document
+              Lade dein Dokument hoch
             </Button>
           </Upload>
         </Form.Item>
 
-        <Form.Item label="Color mode" name="colorMode">
+        <Form.Item label="Farbmodus" name="colorMode">
           <Select
             defaultValue="BLACK"
             onChange={(value) => {
@@ -221,13 +226,13 @@ export const JobRequestForm = ({
             }}
             disabled={!printerConnected}
           >
-            <Option value="BLACK">Black {"&"} White</Option>
-            <Option value="COLOR">Color</Option>
+            <Option value="BLACK">Schwarz {"&"} Weiß</Option>
+            <Option value="COLOR">Farbe</Option>
           </Select>
         </Form.Item>
 
         <Form.Item
-          label="Page range"
+          label="Seitenbereich"
           name="pageRange"
           rules={[
             (_) => ({
@@ -263,7 +268,7 @@ export const JobRequestForm = ({
           />
         </Form.Item>
 
-        <Form.Item label="Copies" name="numCopies">
+        <Form.Item label="Kopien" name="numCopies">
           <InputNumber
             min={1}
             defaultValue={1}
@@ -283,14 +288,14 @@ export const JobRequestForm = ({
 
         <Form.Item
           style={{ fontWeight: "bold" }}
-          label={<Title level={5}>You'll be charged</Title>}
+          label={<Title level={5}>Es werden belastet</Title>}
           name="price"
         >
           <Title level={5}>{printPrice.price.toString()} €</Title>(
           {printPrice.config.pageRange
             ? parsePageRange(printPrice.config.pageRange)
             : printPrice.config.numPages}{" "}
-          pages, {printPrice.config.numCopies} copies)
+          Seiten, {printPrice.config.numCopies} Kopien)
         </Form.Item>
 
         <Form.Item label={<PlayCircleTwoTone />}>
@@ -302,8 +307,8 @@ export const JobRequestForm = ({
       </Form>
       <Loading
         loading={loading}
-        title="Submitting print job"
-        text="Please wait while we're submitting your print job."
+        title="Druckauftrag wird eingereicht"
+        text="Bitte hab einen Moment Geduld, während wir deinen Druckauftrag einreichen."
       />
     </>
   );
