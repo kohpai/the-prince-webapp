@@ -38,7 +38,7 @@ export const AuthUI = () => {
           <Menu>
             <Menu.Item>
               <Link to="/user">
-                <PrinterOutlined /> Ausdruck Konsole
+                <PrinterOutlined /> Ausdruckkonsole
               </Link>
             </Menu.Item>
             <Menu.Item

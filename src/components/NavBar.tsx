@@ -73,7 +73,7 @@ export const NavBar = ({ page }: NavProps) => {
           {user && (
             <Menu.Item key="user">
               <Link to="/user">
-                <PrinterOutlined /> Ausdruck Konsole
+                <PrinterOutlined /> Ausdruckkonsole
               </Link>
             </Menu.Item>
           )}
