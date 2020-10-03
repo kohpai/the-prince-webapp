@@ -92,7 +92,7 @@ const App = () => {
               </Content>
               <Footer className="info">
                 <Divider />
-                Contact us:&nbsp; <ContactIcons />
+                Kontaktiere uns:&nbsp; <ContactIcons />
               </Footer>
             </Layout>
           </Col>
