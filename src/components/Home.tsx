@@ -139,7 +139,7 @@ export const Home = ({ healthStats, loading }: HomeProps) => {
               width="100%"
               height="450"
               title="gmaps"
-              src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCdAgrKsZH0EVltMS1uOE6sJxIZzB4H1X8&q=The+Prince:+almost-24-hour+printing+service"
+              src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCdAgrKsZH0EVltMS1uOE6sJxIZzB4H1X8&q=The+Prince:+24-Stunden+Druckservice"
               allowFullScreen={true}
             />
           </Col>
