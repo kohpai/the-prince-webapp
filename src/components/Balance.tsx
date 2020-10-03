@@ -26,17 +26,15 @@ export const Balance = ({
   return (
     <Collapse>
       <Panel
-        header={
-          <Title level={4}>Current balance: {balance.toString()} €</Title>
-        }
+        header={<Title level={4}>Dein Guthaben: {balance.toString()} €</Title>}
         key="1"
       >
         <Space className="expand-space" direction="vertical" size="large">
           <Row>
             <Col span={24}>
-              <Title level={4}>Top up your wallet</Title>
+              <Title level={4}>Lade dein Guthaben auf</Title>
               <Space direction="horizontal">
-                amount
+                Betrag
                 <InputNumber
                   min={minAmount}
                   defaultValue={minAmount}
@@ -55,11 +53,13 @@ export const Balance = ({
                 <PayButton amount={amount} onBalanceUpdate={onBalanceUpdate} />
               ) : (
                 <Paragraph>
-                  You cannot top up your wallet while the server is not online{" "}
+                  Du kannst dein Guthaben, solange der Server offline ist, nicht
+                  aufladen{" "}
                   <span role="img" aria-label="grinning-face">
                     😞
                   </span>
-                  . Please check the status in home page and try again.
+                  . Überprüfe den Status auf der Homepage und probier es
+                  nochmal.
                 </Paragraph>
               )}
             </Col>
