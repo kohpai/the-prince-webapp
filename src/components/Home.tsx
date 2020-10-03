@@ -112,7 +112,7 @@ export const Home = ({ healthStats, loading }: HomeProps) => {
             <Title level={3}>
               <span className="avoidwrap">Print your documents,&nbsp;</span>
               <span className="avoidwrap">
-                available almost 24 hours<sup className="origin">1</sup>!
+                available for 24 hours<sup className="origin">1</sup>!
               </span>
             </Title>
             <UserActionFlow />
@@ -121,9 +121,7 @@ export const Home = ({ healthStats, loading }: HomeProps) => {
         <Row>
           <Col span={24}>
             <Paragraph className="info">
-              <sup>1</sup>The service is available from <b>DUSK TILL DAWN</b>{" "}
-              around <b>18.00 - 08.00</b>. Please see the service health check
-              below for realtime status.
+              <sup>1</sup>Please see the service realtime status here.
             </Paragraph>
             <ServiceStatus healthStats={healthStats} />
           </Col>
