@@ -7,7 +7,7 @@ export default {
     CURRENCY: process.env.REACT_APP_PAYPAL_CURRENCY || "EUR",
   },
   printer: {
-    BLACK_CPP: 0.08,
-    COLOR_CPP: 0.11,
+    BLACK_CPP: 0.50,
+    COLOR_CPP: 0.80,
   },
 };
