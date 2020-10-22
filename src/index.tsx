@@ -6,6 +6,7 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import apolloClient from "./lib/apollo";
+import "./lib/logrocket";
 
 ReactDOM.render(
   <React.StrictMode>

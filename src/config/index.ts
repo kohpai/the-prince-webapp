@@ -6,8 +6,11 @@ export default {
       "AWhf7-rhZ4ySjSb7Q1xqTG_sIxZ3zjJTiqmU8sqP1AnEIT82ZI8_O046k6Hwi6jbpvzKkRQtZ_1UEiNs",
     CURRENCY: process.env.REACT_APP_PAYPAL_CURRENCY || "EUR",
   },
+  logrocket: {
+    APP_ID: process.env.LOGROCKET_APP_ID || "vpk2hy/the-prince",
+  },
   printer: {
-    BLACK_CPP: 0.50,
-    COLOR_CPP: 0.80,
+    BLACK_CPP: 0.5,
+    COLOR_CPP: 0.8,
   },
 };
