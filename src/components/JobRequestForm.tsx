@@ -47,7 +47,7 @@ const { Title } = Typography;
 const SUBMIT_PRINT_JOB = gql`
   mutation SubmitPrintJob(
     $filename: String!
-    $printConfig: PrintConfigTInput!
+    $printConfig: PrintConfigInput!
   ) {
     submitPrintJob(input: { filename: $filename, printConfig: $printConfig }) {
       printJob {
