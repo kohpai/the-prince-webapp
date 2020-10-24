@@ -9,7 +9,6 @@ import {
 import { Link } from "react-router-dom";
 
 import firebase from "../lib/firebase";
-import { ContactIcons } from "./ContactIcons";
 
 interface NavProps {
   page: string;
@@ -45,7 +44,8 @@ export const NavBar = ({ page }: NavProps) => {
         >
           Menu
         </Button>
-        <ContactIcons />
+        <a href="https://the-prince-de.web.app/">DE</a>
+        <a href="https://the-prince-98130.web.app/">EN</a>
       </Space>
       <Drawer
         title="The Prince"
