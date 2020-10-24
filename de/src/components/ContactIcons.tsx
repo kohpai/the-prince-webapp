@@ -1,6 +1,11 @@
 import React from "react";
 import { Space } from "antd";
-import { FacebookFilled, GoogleCircleFilled } from "@ant-design/icons";
+import {
+  FacebookFilled,
+  GoogleCircleFilled,
+  WhatsAppOutlined,
+  MessageFilled,
+} from "@ant-design/icons";
 
 export const ContactIcons = () => (
   <Space direction="horizontal">
@@ -14,11 +19,28 @@ export const ContactIcons = () => (
     </a>
     <a
       className="icon-contact-size"
+      href="https://m.me/115488230299288"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <MessageFilled />
+    </a>
+    <a
+      className="icon-contact-size"
       href="https://goo.gl/maps/1mkUKmvyn7JZHDJ68"
       target="_blank"
       rel="noopener noreferrer"
     >
       <GoogleCircleFilled />
     </a>
+    <a
+      className="icon-contact-size"
+      href="tel:+4917635517262"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <WhatsAppOutlined />
+    </a>
+    +4917635517262
   </Space>
 );
