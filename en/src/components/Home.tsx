@@ -38,7 +38,7 @@ const columns = [
       status ? <Image src={checkedImg} /> : <Image src={minusImg} />,
   },
   {
-    title: "Zuletzt überprüft",
+    title: "Last check",
     dataIndex: "checkedAt",
     key: "checkedAt",
     render: (date: Date) => date.toLocaleString(),
@@ -48,22 +48,21 @@ const columns = [
 const UserActionFlow = () => (
   <ol className="info">
     <li>
-      Melde dich an oder registriere dich um dein Guthaben aufzuladen
-      (Mindestbetrag: 5 €, du kannst dir den Rest für später aufheben{" "}
+      Sign up or sign in to top up your wallet (minimum amount of 5 €, you can
+      save it for later{" "}
       <span role="img" aria-label="smiley-face">
         😊
       </span>
       )
     </li>
     <li>
-      Lade dein Dokument hoch und drucke es aus (du kannst den Farbmodus und die
-      Seiten auswählen)
+      Upload and print your document (you can set color mode and page range as
+      well)
     </li>
     <li>
-      Hol deine Dokumente am Vogeliusweg 12/12.1.3, 33100 Paderborn ab. Siehe
-      Karte unten. (Bitte probiere nicht nach 23 Uhr und nicht vor 6:30 Uhr zu
-      kommen. Du kannst die Dokumente natürlich schon ausdrucken, aber dann
-      später abholen.)
+      Get your documents at Vogeliusweg 12/12.1.3, 33100 Paderborn. See the map
+      below. (Please try not to come after 23.00 and before 6.30, you can still
+      print the documents and get it later though!)
     </li>
   </ol>
 );
@@ -72,19 +71,19 @@ const ServiceStatus = ({ healthStats }: ServiceStatusProps) => {
   const now = new Date();
   const server: HealthStatsRecord = {
     key: "1",
-    feature: "Druckserver ist online",
+    feature: "Printing server is online",
     status: false,
     checkedAt: now,
   };
   const printer: HealthStatsRecord = {
     key: "2",
-    feature: "Drucker ist verbunden",
+    feature: "Printer is connected",
     status: false,
     checkedAt: now,
   };
   const welcome: HealthStatsRecord = {
     key: "3",
-    feature: "Kann ich die Dokumente jetzt abholen?",
+    feature: "Is now a good time to pick up my documents?",
     status: false,
     checkedAt: now,
   };
@@ -111,11 +110,9 @@ export const Home = ({ healthStats, loading }: HomeProps) => {
         <Row>
           <Col span={24}>
             <Title level={3}>
+              <span className="avoidwrap">Print your documents,&nbsp;</span>
               <span className="avoidwrap">
-                Drucke deine Dokumente aus,&nbsp;
-              </span>
-              <span className="avoidwrap">
-                24 Stunden verfügbar<sup className="origin">1</sup>!
+                available for 24 hours<sup className="origin">1</sup>!
               </span>
             </Title>
             <UserActionFlow />
@@ -124,7 +121,7 @@ export const Home = ({ healthStats, loading }: HomeProps) => {
         <Row>
           <Col span={24}>
             <Paragraph className="info">
-              <sup>1</sup>Den Echtzeitstatus des Dienstes findest du hier.
+              <sup>1</sup>Please see the service realtime status here.
             </Paragraph>
             <ServiceStatus healthStats={healthStats} />
           </Col>
@@ -132,7 +129,7 @@ export const Home = ({ healthStats, loading }: HomeProps) => {
         <Row>
           <Col className="info" span={24}>
             <Divider orientation="left">
-              <Title level={4}>Hole es hier ab</Title>
+              <Title level={4}>Pick it up here!</Title>
             </Divider>
             <iframe
               className="map-iframe"
@@ -146,9 +143,9 @@ export const Home = ({ healthStats, loading }: HomeProps) => {
         </Row>
       </Space>
       <Loading
-        title="Service wird überprüft"
+        title="Checking service"
         loading={loading}
-        text="Einen Moment Geduld, während wir den Service Status überprüfen"
+        text="Please wait while we're checking the service's status."
       />
     </>
   );

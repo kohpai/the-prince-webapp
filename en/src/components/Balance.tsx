@@ -8,6 +8,7 @@ import { HealthStats } from "./commonTypes";
 interface BalanceProps {
   healthStats?: HealthStats;
   balance: Big;
+
   onBalanceUpdate(balance: Big): void;
 }
 
@@ -26,15 +27,17 @@ export const Balance = ({
   return (
     <Collapse>
       <Panel
-        header={<Title level={4}>Dein Guthaben: {balance.toString()} €</Title>}
+        header={
+          <Title level={4}>Current balance: {balance.toString()} €</Title>
+        }
         key="1"
       >
         <Space className="expand-space" direction="vertical" size="large">
           <Row>
             <Col span={24}>
-              <Title level={4}>Lade dein Guthaben auf</Title>
+              <Title level={4}>Top up your wallet</Title>
               <Space direction="horizontal">
-                Betrag
+                amount
                 <InputNumber
                   min={minAmount}
                   defaultValue={minAmount}
@@ -53,13 +56,11 @@ export const Balance = ({
                 <PayButton amount={amount} onBalanceUpdate={onBalanceUpdate} />
               ) : (
                 <Paragraph>
-                  Du kannst dein Guthaben, solange der Server offline ist, nicht
-                  aufladen{" "}
+                  You cannot top up your wallet while the server is not online{" "}
                   <span role="img" aria-label="grinning-face">
                     😞
                   </span>
-                  . Überprüfe den Status auf der Homepage und probiere es
-                  nochmal.
+                  . Please check the status in home page and try again.
                 </Paragraph>
               )}
             </Col>

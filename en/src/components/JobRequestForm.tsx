@@ -37,7 +37,9 @@ interface PrintPrice {
 
 interface JobRequestFormProps {
   healthStats?: HealthStats;
+
   onBalanceUpdate?(balance: Big): void;
+
   onNewPrintJob?(printJob: PrintJob): void;
 }
 
@@ -45,10 +47,7 @@ const { Option } = Select;
 const { Title } = Typography;
 
 const SUBMIT_PRINT_JOB = gql`
-  mutation SubmitPrintJob(
-    $filename: String!
-    $printConfig: PrintConfigInput!
-  ) {
+  mutation SubmitPrintJob($filename: String!, $printConfig: PrintConfigInput!) {
     submitPrintJob(input: { filename: $filename, printConfig: $printConfig }) {
       printJob {
         id
@@ -142,10 +141,7 @@ export const JobRequestForm = ({
     setLoading(false);
 
     if (errors) {
-      message.error(
-        `Druckauftrag konnte nicht eingereicht werden: ${errors[0].message}`,
-        0
-      );
+      message.error(`Failed to sumbit the print job: ${errors[0].message}`, 0);
       return;
     }
 
@@ -176,11 +172,9 @@ export const JobRequestForm = ({
         colon={false}
       >
         <Form.Item
-          label="PDF Datei"
+          label="PDF file"
           name="filename"
-          rules={[
-            { required: true, message: "Bitte lade eine PDF Datei hoch" },
-          ]}
+          rules={[{ required: true, message: "Please upload a PDF file!" }]}
         >
           <Upload
             fileList={fileList}
@@ -209,12 +203,12 @@ export const JobRequestForm = ({
             }}
           >
             <Button icon={<UploadOutlined />} disabled={!printerConnected}>
-              Lade dein Dokument hoch
+              Upload your document
             </Button>
           </Upload>
         </Form.Item>
 
-        <Form.Item label="Farbmodus" name="colorMode">
+        <Form.Item label="Color mode" name="colorMode">
           <Select
             defaultValue="BLACK"
             onChange={(value) => {
@@ -226,13 +220,13 @@ export const JobRequestForm = ({
             }}
             disabled={!printerConnected}
           >
-            <Option value="BLACK">Schwarz {"&"} Weiß</Option>
-            <Option value="COLOR">Farbe</Option>
+            <Option value="BLACK">Black {"&"} White</Option>
+            <Option value="COLOR">Color</Option>
           </Select>
         </Form.Item>
 
         <Form.Item
-          label="Seitenbereich"
+          label="Page range"
           name="pageRange"
           rules={[
             (_) => ({
@@ -268,7 +262,7 @@ export const JobRequestForm = ({
           />
         </Form.Item>
 
-        <Form.Item label="Kopien" name="numCopies">
+        <Form.Item label="Copies" name="numCopies">
           <InputNumber
             min={1}
             defaultValue={1}
@@ -288,14 +282,14 @@ export const JobRequestForm = ({
 
         <Form.Item
           style={{ fontWeight: "bold" }}
-          label={<Title level={5}>Es werden belastet</Title>}
+          label={<Title level={5}>You'll be charged</Title>}
           name="price"
         >
           <Title level={5}>{printPrice.price.toString()} €</Title>(
           {printPrice.config.pageRange
             ? parsePageRange(printPrice.config.pageRange)
             : printPrice.config.numPages}{" "}
-          Seiten, {printPrice.config.numCopies} Kopien)
+          pages, {printPrice.config.numCopies} copies)
         </Form.Item>
 
         <Form.Item label={<PlayCircleTwoTone />}>
@@ -307,8 +301,8 @@ export const JobRequestForm = ({
       </Form>
       <Loading
         loading={loading}
-        title="Druckauftrag wird eingereicht"
-        text="Bitte hab einen Moment Geduld, während wir deinen Druckauftrag einreichen."
+        title="Submitting print job"
+        text="Please wait while we're submitting your print job."
       />
     </>
   );

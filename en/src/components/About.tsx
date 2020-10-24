@@ -6,14 +6,14 @@ const { Title, Paragraph } = Typography;
 
 export const About = () => (
   <Space direction="vertical" size="small">
-    <Title level={3}>Was ist das?</Title>
+    <Title level={3}>What's this?</Title>
     <Paragraph className="info">
-      Etwas was ich gemerkt habe ist, dass es schwierig ist in Deutschland eine
-      offene Druckerei früh morgens, geschweige denn spät abends, zu finden.
-      Also habe ich entschlossen mir einen Drucker zu kaufen und diesen in einen
-      fast 24 Stunden Druckshop zu verwandeln, damit Leute wie ich, welche erst
-      im letzten Moment die benötigten Dokumente ausdrucken, mit dem Wissen,
-      dass die Dokumente am nächsten Morgen rechtzeitig fertig sind.
+      One thing I noticed when I moved to Germany is that finding an in-service
+      print shop in the early morning is very difficult, let alone ones
+      operating at night. So I decided to buy my first printer and turned it
+      into this dusk-till-dawn online printing service so that procrastinators
+      like me can rest assure at night that the documents will be ready before
+      dawn.
     </Paragraph>
 
     <Divider orientation="center">

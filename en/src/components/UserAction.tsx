@@ -5,7 +5,7 @@ import { gql, useMutation } from "@apollo/client";
 
 import { Balance } from "./Balance";
 import { JobRequestForm } from "./JobRequestForm";
-import { HealthStats, PrintJob, JobStatus } from "./commonTypes";
+import { HealthStats, PrintJob } from "./commonTypes";
 
 interface UserActionProps {
   healthStats?: HealthStats;
@@ -17,15 +17,9 @@ interface PrintJobRecord extends PrintJob {
 
 const { Title, Paragraph } = Typography;
 
-const statusMap = new Map<JobStatus, string>([
-  ["PLACED", "EINGEREICHT"],
-  ["EXECUTED", "AUSGEFÜHRT"],
-  ["FAILED", "FEHLGESCHLAGEN"],
-]);
-
 const columns = [
   {
-    title: "Auftrags ID",
+    title: "Job ID",
     dataIndex: "id",
     key: "id",
   },
@@ -33,10 +27,9 @@ const columns = [
     title: "Status",
     dataIndex: "status",
     key: "status",
-    render: (status: JobStatus) => statusMap.get(status),
   },
   {
-    title: "Angefordert am",
+    title: "Requested at",
     dataIndex: "createdAt",
     key: "createdAt",
     render: (date: Date) => date.toLocaleString(),
@@ -101,28 +94,27 @@ export const UserAction = ({ healthStats }: UserActionProps) => {
         balance={balance}
         onBalanceUpdate={(b) => {
           setBalance(b);
-          message.success("Dein Guthaben wurde aktualisiert", 3);
+          message.success("Your balance is adjusted.", 3);
         }}
       />
       <Divider orientation="left">
         {healthStats && healthStats.printerConnected ? (
-          <Title level={4}>Druckauftrag einreichen</Title>
+          <Title level={4}>Submit a print job</Title>
         ) : (
           <Popover
             content={
               <Paragraph>
-                Du kannst keinen Druckauftrag einreichen, solange kein Drucker
-                angeschlossen ist{" "}
+                You cannot submit a print job while no printer connected{" "}
                 <span role="img" aria-label="grinning-face">
                   😞
                 </span>
-                . Überprüfe den Status auf der Homepage und probiere es nochmal.
+                . Please check the status in Home page and try again.
               </Paragraph>
             }
-            title="Drucker ist nicht verbunden"
+            title="Printer is not connected"
             trigger={["click", "hover"]}
           >
-            <Title level={4}>Druckauftrag einreichen</Title>
+            <Title level={4}>Submit a print job</Title>
           </Popover>
         )}
       </Divider>
@@ -130,15 +122,15 @@ export const UserAction = ({ healthStats }: UserActionProps) => {
         healthStats={healthStats}
         onBalanceUpdate={(b) => {
           setBalance(b);
-          message.success("Dein Guthaben wurde aktualisiert", 3);
+          message.success("Your balance is adjusted.", 3);
         }}
         onNewPrintJob={(job) => {
           updatePrintJobs([{ ...job, key: `${job.id}` }].concat(printJobs));
-          message.success("Neuer Auftrag wurde hinzugefügt. Siehe unten.", 3);
+          message.success("New job is added. Check out below.", 3);
         }}
       />
       <Divider orientation="left">
-        <Title level={4}>Aufträge</Title>
+        <Title level={4}>Jobs</Title>
       </Divider>
       <Table columns={columns} dataSource={printJobs} />
     </Space>

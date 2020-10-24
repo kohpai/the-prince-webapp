@@ -38,7 +38,7 @@ export const AuthUI = () => {
           <Menu>
             <Menu.Item>
               <Link to="/user">
-                <PrinterOutlined /> Ausdruckkonsole
+                <PrinterOutlined /> Print console
               </Link>
             </Menu.Item>
             <Menu.Item
@@ -47,7 +47,7 @@ export const AuthUI = () => {
                 setRedirecting(true);
               }}
             >
-              <LogoutOutlined /> Ausloggen
+              <LogoutOutlined /> Sign out
             </Menu.Item>
           </Menu>
         }
@@ -61,11 +61,11 @@ export const AuthUI = () => {
     <>
       {redirecting && <Redirect to="/home" />}
       <Button type="primary" onClick={openModal}>
-        <UserOutlined /> Registrieren / Anmelden
+        <UserOutlined /> Sign up / sign in
       </Button>
       <Modal
         className="undo-info"
-        title="Registrieren / Anmelden"
+        title="Sign up / sign in"
         visible={modalVisibility}
         onOk={closeModal}
         onCancel={closeModal}

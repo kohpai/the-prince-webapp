@@ -62,18 +62,18 @@ export const NavBar = ({ page }: NavProps) => {
         >
           <Menu.Item key="home">
             <Link to="/home">
-              <BookOutlined /> So geht's
+              <BookOutlined /> Get started guide
             </Link>
           </Menu.Item>
           <Menu.Item key="about">
             <Link to="/about">
-              <QuestionCircleOutlined /> Was ist das?
+              <QuestionCircleOutlined /> What's this?
             </Link>
           </Menu.Item>
           {user && (
             <Menu.Item key="user">
               <Link to="/user">
-                <PrinterOutlined /> Ausdruckkonsole
+                <PrinterOutlined /> Print console
               </Link>
             </Menu.Item>
           )}
