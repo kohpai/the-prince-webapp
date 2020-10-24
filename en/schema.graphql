@@ -1,0 +1,709 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+"An object with a globally unique `ID`."
+interface Node {
+    "A globally unique identifier. Can be used in various places throughout the system to identify this single value."
+    nodeId: ID!
+}
+
+"The output of our `calcJobPrice` mutation."
+type CalcJobPricePayload {
+    "The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations."
+    clientMutationId: String
+    float: Float
+    "Our root query field type. Allows us to run any query from our mutation payload."
+    query: Query
+}
+
+"The output of our create `Customer` mutation."
+type CreateCustomerPayload {
+    "The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations."
+    clientMutationId: String
+    "The `Customer` that was created by this mutation."
+    customer: Customer
+    "An edge for our `Customer`. May be used by Relay 1."
+    customerEdge(
+        "The method to use when ordering `Customer`."
+        orderBy: [CustomersOrderBy!] = [PRIMARY_KEY_ASC]
+    ): CustomersEdge
+    "Our root query field type. Allows us to run any query from our mutation payload."
+    query: Query
+}
+
+"The output of our create `PrintJob` mutation."
+type CreatePrintJobPayload {
+    "The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations."
+    clientMutationId: String
+    "Reads a single `Customer` that is related to this `PrintJob`."
+    customer: Customer
+    "The `PrintJob` that was created by this mutation."
+    printJob: PrintJob
+    "An edge for our `PrintJob`. May be used by Relay 1."
+    printJobEdge(
+        "The method to use when ordering `PrintJob`."
+        orderBy: [PrintJobsOrderBy!] = [PRIMARY_KEY_ASC]
+    ): PrintJobsEdge
+    "Our root query field type. Allows us to run any query from our mutation payload."
+    query: Query
+}
+
+"The output of our `currentUser` mutation."
+type CurrentUserPayload {
+    "The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations."
+    clientMutationId: String
+    customer: Customer
+    "An edge for our `Customer`. May be used by Relay 1."
+    customerEdge(
+        "The method to use when ordering `Customer`."
+        orderBy: [CustomersOrderBy!] = [PRIMARY_KEY_ASC]
+    ): CustomersEdge
+    "Our root query field type. Allows us to run any query from our mutation payload."
+    query: Query
+}
+
+type Customer implements Node {
+    balance: Float!
+    createdAt: Datetime!
+    id: String!
+    "A globally unique identifier. Can be used in various places throughout the system to identify this single value."
+    nodeId: ID!
+    "Reads and enables pagination through a set of `PrintJob`."
+    printJobs(
+        "Read all values in the set after (below) this cursor."
+        after: Cursor,
+        "Read all values in the set before (above) this cursor."
+        before: Cursor,
+        "A condition to be used in determining which values should be returned by the collection."
+        condition: PrintJobCondition,
+        "Only read the first `n` values of the set."
+        first: Int,
+        "Only read the last `n` values of the set."
+        last: Int,
+        "Skip the first `n` values from our `after` cursor, an alternative to cursor based pagination. May not be used with `last`."
+        offset: Int,
+        "The method to use when ordering `PrintJob`."
+        orderBy: [PrintJobsOrderBy!] = [PRIMARY_KEY_ASC]
+    ): PrintJobsConnection!
+    updatedAt: Datetime!
+}
+
+"A connection to a list of `Customer` values."
+type CustomersConnection {
+    "A list of edges which contains the `Customer` and cursor to aid in pagination."
+    edges: [CustomersEdge!]!
+    "A list of `Customer` objects."
+    nodes: [Customer]!
+    "Information to aid in pagination."
+    pageInfo: PageInfo!
+    "The count of *all* `Customer` you could get from the connection."
+    totalCount: Int!
+}
+
+"A `Customer` edge in the connection."
+type CustomersEdge {
+    "A cursor for use in pagination."
+    cursor: Cursor
+    "The `Customer` at the end of the edge."
+    node: Customer
+}
+
+"The output of our delete `Customer` mutation."
+type DeleteCustomerPayload {
+    "The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations."
+    clientMutationId: String
+    "The `Customer` that was deleted by this mutation."
+    customer: Customer
+    "An edge for our `Customer`. May be used by Relay 1."
+    customerEdge(
+        "The method to use when ordering `Customer`."
+        orderBy: [CustomersOrderBy!] = [PRIMARY_KEY_ASC]
+    ): CustomersEdge
+    deletedCustomerNodeId: ID
+    "Our root query field type. Allows us to run any query from our mutation payload."
+    query: Query
+}
+
+"The output of our delete `PrintJob` mutation."
+type DeletePrintJobPayload {
+    "The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations."
+    clientMutationId: String
+    "Reads a single `Customer` that is related to this `PrintJob`."
+    customer: Customer
+    deletedPrintJobNodeId: ID
+    "The `PrintJob` that was deleted by this mutation."
+    printJob: PrintJob
+    "An edge for our `PrintJob`. May be used by Relay 1."
+    printJobEdge(
+        "The method to use when ordering `PrintJob`."
+        orderBy: [PrintJobsOrderBy!] = [PRIMARY_KEY_ASC]
+    ): PrintJobsEdge
+    "Our root query field type. Allows us to run any query from our mutation payload."
+    query: Query
+}
+
+type HealthStats {
+    printerConnected: Boolean
+    welcome: Boolean
+}
+
+"The root mutation type which contains root level fields which mutate data."
+type Mutation {
+    calcJobPrice(
+        "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+        input: CalcJobPriceInput!
+    ): CalcJobPricePayload
+    "Creates a single `Customer`."
+    createCustomer(
+        "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+        input: CreateCustomerInput!
+    ): CreateCustomerPayload
+    "Creates a single `PrintJob`."
+    createPrintJob(
+        "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+        input: CreatePrintJobInput!
+    ): CreatePrintJobPayload
+    "Get current logged-in user"
+    currentUser(
+        "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+        input: CurrentUserInput!
+    ): CurrentUserPayload
+    "Deletes a single `Customer` using a unique key."
+    deleteCustomer(
+        "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+        input: DeleteCustomerInput!
+    ): DeleteCustomerPayload
+    "Deletes a single `Customer` using its globally unique id."
+    deleteCustomerByNodeId(
+        "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+        input: DeleteCustomerByNodeIdInput!
+    ): DeleteCustomerPayload
+    "Deletes a single `PrintJob` using a unique key."
+    deletePrintJob(
+        "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+        input: DeletePrintJobInput!
+    ): DeletePrintJobPayload
+    "Deletes a single `PrintJob` using its globally unique id."
+    deletePrintJobByNodeId(
+        "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+        input: DeletePrintJobByNodeIdInput!
+    ): DeletePrintJobPayload
+    "Add a new customer from Firebase user"
+    newCustomer(
+        "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+        input: NewCustomerInput!
+    ): NewCustomerPayload
+    parsePageRange(
+        "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+        input: ParsePageRangeInput!
+    ): ParsePageRangePayload
+    "Submit a print job"
+    submitPrintJob(
+        "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+        input: SubmitPrintJobInput!
+    ): SubmitPrintJobPayload
+    "Top up the customer's balance"
+    topUp(
+        "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+        input: TopUpInput!
+    ): TopUpPayload
+    "Updates a single `Customer` using a unique key and a patch."
+    updateCustomer(
+        "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+        input: UpdateCustomerInput!
+    ): UpdateCustomerPayload
+    "Updates a single `Customer` using its globally unique id and a patch."
+    updateCustomerByNodeId(
+        "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+        input: UpdateCustomerByNodeIdInput!
+    ): UpdateCustomerPayload
+    "Updates a single `PrintJob` using a unique key and a patch."
+    updatePrintJob(
+        "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+        input: UpdatePrintJobInput!
+    ): UpdatePrintJobPayload
+    "Updates a single `PrintJob` using its globally unique id and a patch."
+    updatePrintJobByNodeId(
+        "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields."
+        input: UpdatePrintJobByNodeIdInput!
+    ): UpdatePrintJobPayload
+}
+
+"The output of our `newCustomer` mutation."
+type NewCustomerPayload {
+    "The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations."
+    clientMutationId: String
+    customer: Customer
+    "An edge for our `Customer`. May be used by Relay 1."
+    customerEdge(
+        "The method to use when ordering `Customer`."
+        orderBy: [CustomersOrderBy!] = [PRIMARY_KEY_ASC]
+    ): CustomersEdge
+    "Our root query field type. Allows us to run any query from our mutation payload."
+    query: Query
+}
+
+"Information about pagination in a connection."
+type PageInfo {
+    "When paginating forwards, the cursor to continue."
+    endCursor: Cursor
+    "When paginating forwards, are there more items?"
+    hasNextPage: Boolean!
+    "When paginating backwards, are there more items?"
+    hasPreviousPage: Boolean!
+    "When paginating backwards, the cursor to continue."
+    startCursor: Cursor
+}
+
+"The output of our `parsePageRange` mutation."
+type ParsePageRangePayload {
+    "The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations."
+    clientMutationId: String
+    integer: Int
+    "Our root query field type. Allows us to run any query from our mutation payload."
+    query: Query
+}
+
+type PrintJob implements Node {
+    colorMode: ColorMode!
+    createdAt: Datetime!
+    "Reads a single `Customer` that is related to this `PrintJob`."
+    customer: Customer
+    customerId: String!
+    filename: String!
+    id: Int!
+    "A globally unique identifier. Can be used in various places throughout the system to identify this single value."
+    nodeId: ID!
+    numCopies: Int!
+    numPages: Int!
+    pageRange: String
+    price: Float!
+    status: JobStatus!
+    updatedAt: Datetime!
+}
+
+"A connection to a list of `PrintJob` values."
+type PrintJobsConnection {
+    "A list of edges which contains the `PrintJob` and cursor to aid in pagination."
+    edges: [PrintJobsEdge!]!
+    "A list of `PrintJob` objects."
+    nodes: [PrintJob]!
+    "Information to aid in pagination."
+    pageInfo: PageInfo!
+    "The count of *all* `PrintJob` you could get from the connection."
+    totalCount: Int!
+}
+
+"A `PrintJob` edge in the connection."
+type PrintJobsEdge {
+    "A cursor for use in pagination."
+    cursor: Cursor
+    "The `PrintJob` at the end of the edge."
+    node: PrintJob
+}
+
+"The root query type which gives access points into the data universe."
+type Query implements Node {
+    customer(id: String!): Customer
+    "Reads a single `Customer` using its globally unique `ID`."
+    customerByNodeId(
+        "The globally unique `ID` to be used in selecting a single `Customer`."
+        nodeId: ID!
+    ): Customer
+    "Reads and enables pagination through a set of `Customer`."
+    customers(
+        "Read all values in the set after (below) this cursor."
+        after: Cursor,
+        "Read all values in the set before (above) this cursor."
+        before: Cursor,
+        "A condition to be used in determining which values should be returned by the collection."
+        condition: CustomerCondition,
+        "Only read the first `n` values of the set."
+        first: Int,
+        "Only read the last `n` values of the set."
+        last: Int,
+        "Skip the first `n` values from our `after` cursor, an alternative to cursor based pagination. May not be used with `last`."
+        offset: Int,
+        "The method to use when ordering `Customer`."
+        orderBy: [CustomersOrderBy!] = [PRIMARY_KEY_ASC]
+    ): CustomersConnection
+    healthStats: HealthStats
+    "Fetches an object given its globally unique `ID`."
+    node(
+        "The globally unique `ID`."
+        nodeId: ID!
+    ): Node
+    "The root query type must be a `Node` to work well with Relay 1 mutations. This just resolves to `query`."
+    nodeId: ID!
+    printJob(id: Int!): PrintJob
+    "Reads a single `PrintJob` using its globally unique `ID`."
+    printJobByNodeId(
+        "The globally unique `ID` to be used in selecting a single `PrintJob`."
+        nodeId: ID!
+    ): PrintJob
+    "Reads and enables pagination through a set of `PrintJob`."
+    printJobs(
+        "Read all values in the set after (below) this cursor."
+        after: Cursor,
+        "Read all values in the set before (above) this cursor."
+        before: Cursor,
+        "A condition to be used in determining which values should be returned by the collection."
+        condition: PrintJobCondition,
+        "Only read the first `n` values of the set."
+        first: Int,
+        "Only read the last `n` values of the set."
+        last: Int,
+        "Skip the first `n` values from our `after` cursor, an alternative to cursor based pagination. May not be used with `last`."
+        offset: Int,
+        "The method to use when ordering `PrintJob`."
+        orderBy: [PrintJobsOrderBy!] = [PRIMARY_KEY_ASC]
+    ): PrintJobsConnection
+    "Exposes the root query type nested one level down. This is helpful for Relay 1 which can only query top level fields if they are in a particular form."
+    query: Query!
+}
+
+"The output of our `submitPrintJob` mutation."
+type SubmitPrintJobPayload {
+    "The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations."
+    clientMutationId: String
+    "Reads a single `Customer` that is related to this `PrintJob`."
+    customer: Customer
+    printJob: PrintJob
+    "An edge for our `PrintJob`. May be used by Relay 1."
+    printJobEdge(
+        "The method to use when ordering `PrintJob`."
+        orderBy: [PrintJobsOrderBy!] = [PRIMARY_KEY_ASC]
+    ): PrintJobsEdge
+    "Our root query field type. Allows us to run any query from our mutation payload."
+    query: Query
+}
+
+"The output of our `topUp` mutation."
+type TopUpPayload {
+    "The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations."
+    clientMutationId: String
+    customer: Customer
+    "An edge for our `Customer`. May be used by Relay 1."
+    customerEdge(
+        "The method to use when ordering `Customer`."
+        orderBy: [CustomersOrderBy!] = [PRIMARY_KEY_ASC]
+    ): CustomersEdge
+    "Our root query field type. Allows us to run any query from our mutation payload."
+    query: Query
+}
+
+"The output of our update `Customer` mutation."
+type UpdateCustomerPayload {
+    "The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations."
+    clientMutationId: String
+    "The `Customer` that was updated by this mutation."
+    customer: Customer
+    "An edge for our `Customer`. May be used by Relay 1."
+    customerEdge(
+        "The method to use when ordering `Customer`."
+        orderBy: [CustomersOrderBy!] = [PRIMARY_KEY_ASC]
+    ): CustomersEdge
+    "Our root query field type. Allows us to run any query from our mutation payload."
+    query: Query
+}
+
+"The output of our update `PrintJob` mutation."
+type UpdatePrintJobPayload {
+    "The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations."
+    clientMutationId: String
+    "Reads a single `Customer` that is related to this `PrintJob`."
+    customer: Customer
+    "The `PrintJob` that was updated by this mutation."
+    printJob: PrintJob
+    "An edge for our `PrintJob`. May be used by Relay 1."
+    printJobEdge(
+        "The method to use when ordering `PrintJob`."
+        orderBy: [PrintJobsOrderBy!] = [PRIMARY_KEY_ASC]
+    ): PrintJobsEdge
+    "Our root query field type. Allows us to run any query from our mutation payload."
+    query: Query
+}
+
+enum ColorMode {
+    BLACK
+    COLOR
+}
+
+"Methods to use when ordering `Customer`."
+enum CustomersOrderBy {
+    BALANCE_ASC
+    BALANCE_DESC
+    CREATED_AT_ASC
+    CREATED_AT_DESC
+    ID_ASC
+    ID_DESC
+    NATURAL
+    PRIMARY_KEY_ASC
+    PRIMARY_KEY_DESC
+    UPDATED_AT_ASC
+    UPDATED_AT_DESC
+}
+
+enum JobStatus {
+    EXECUTED
+    FAILED
+    PLACED
+}
+
+"Methods to use when ordering `PrintJob`."
+enum PrintJobsOrderBy {
+    COLOR_MODE_ASC
+    COLOR_MODE_DESC
+    CREATED_AT_ASC
+    CREATED_AT_DESC
+    CUSTOMER_ID_ASC
+    CUSTOMER_ID_DESC
+    FILENAME_ASC
+    FILENAME_DESC
+    ID_ASC
+    ID_DESC
+    NATURAL
+    NUM_COPIES_ASC
+    NUM_COPIES_DESC
+    NUM_PAGES_ASC
+    NUM_PAGES_DESC
+    PAGE_RANGE_ASC
+    PAGE_RANGE_DESC
+    PRICE_ASC
+    PRICE_DESC
+    PRIMARY_KEY_ASC
+    PRIMARY_KEY_DESC
+    STATUS_ASC
+    STATUS_DESC
+    UPDATED_AT_ASC
+    UPDATED_AT_DESC
+}
+
+"All input for the `calcJobPrice` mutation."
+input CalcJobPriceInput {
+    "An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client."
+    clientMutationId: String
+    printConfig: PrintConfigInput!
+}
+
+"All input for the create `Customer` mutation."
+input CreateCustomerInput {
+    "An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client."
+    clientMutationId: String
+    "The `Customer` to be created by this mutation."
+    customer: CustomerInput!
+}
+
+"All input for the create `PrintJob` mutation."
+input CreatePrintJobInput {
+    "An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client."
+    clientMutationId: String
+    "The `PrintJob` to be created by this mutation."
+    printJob: PrintJobInput!
+}
+
+"All input for the `currentUser` mutation."
+input CurrentUserInput {
+    "An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client."
+    clientMutationId: String
+}
+
+"A condition to be used against `Customer` object types. All fields are tested for equality and combined with a logical ‘and.’"
+input CustomerCondition {
+    "Checks for equality with the object’s `balance` field."
+    balance: Float
+    "Checks for equality with the object’s `createdAt` field."
+    createdAt: Datetime
+    "Checks for equality with the object’s `id` field."
+    id: String
+    "Checks for equality with the object’s `updatedAt` field."
+    updatedAt: Datetime
+}
+
+"An input for mutations affecting `Customer`"
+input CustomerInput {
+    balance: Float
+    createdAt: Datetime
+    id: String!
+    updatedAt: Datetime
+}
+
+"Represents an update to a `Customer`. Fields that are set will be updated."
+input CustomerPatch {
+    balance: Float
+    createdAt: Datetime
+    id: String
+    updatedAt: Datetime
+}
+
+"All input for the `deleteCustomerByNodeId` mutation."
+input DeleteCustomerByNodeIdInput {
+    "An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client."
+    clientMutationId: String
+    "The globally unique `ID` which will identify a single `Customer` to be deleted."
+    nodeId: ID!
+}
+
+"All input for the `deleteCustomer` mutation."
+input DeleteCustomerInput {
+    "An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client."
+    clientMutationId: String
+    id: String!
+}
+
+"All input for the `deletePrintJobByNodeId` mutation."
+input DeletePrintJobByNodeIdInput {
+    "An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client."
+    clientMutationId: String
+    "The globally unique `ID` which will identify a single `PrintJob` to be deleted."
+    nodeId: ID!
+}
+
+"All input for the `deletePrintJob` mutation."
+input DeletePrintJobInput {
+    "An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client."
+    clientMutationId: String
+    id: Int!
+}
+
+"All input for the `newCustomer` mutation."
+input NewCustomerInput {
+    "An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client."
+    clientMutationId: String
+}
+
+"All input for the `parsePageRange` mutation."
+input ParsePageRangeInput {
+    "An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client."
+    clientMutationId: String
+    pr: String!
+}
+
+"An input for mutations affecting `PrintConfig`"
+input PrintConfigInput {
+    colorMode: ColorMode
+    numCopies: Int
+    numPages: Int
+    pageRange: String
+}
+
+"A condition to be used against `PrintJob` object types. All fields are tested for equality and combined with a logical ‘and.’"
+input PrintJobCondition {
+    "Checks for equality with the object’s `colorMode` field."
+    colorMode: ColorMode
+    "Checks for equality with the object’s `createdAt` field."
+    createdAt: Datetime
+    "Checks for equality with the object’s `customerId` field."
+    customerId: String
+    "Checks for equality with the object’s `filename` field."
+    filename: String
+    "Checks for equality with the object’s `id` field."
+    id: Int
+    "Checks for equality with the object’s `numCopies` field."
+    numCopies: Int
+    "Checks for equality with the object’s `numPages` field."
+    numPages: Int
+    "Checks for equality with the object’s `pageRange` field."
+    pageRange: String
+    "Checks for equality with the object’s `price` field."
+    price: Float
+    "Checks for equality with the object’s `status` field."
+    status: JobStatus
+    "Checks for equality with the object’s `updatedAt` field."
+    updatedAt: Datetime
+}
+
+"An input for mutations affecting `PrintJob`"
+input PrintJobInput {
+    colorMode: ColorMode!
+    createdAt: Datetime
+    customerId: String!
+    filename: String!
+    id: Int
+    numCopies: Int!
+    numPages: Int!
+    pageRange: String
+    price: Float!
+    status: JobStatus
+    updatedAt: Datetime
+}
+
+"Represents an update to a `PrintJob`. Fields that are set will be updated."
+input PrintJobPatch {
+    colorMode: ColorMode
+    createdAt: Datetime
+    customerId: String
+    filename: String
+    id: Int
+    numCopies: Int
+    numPages: Int
+    pageRange: String
+    price: Float
+    status: JobStatus
+    updatedAt: Datetime
+}
+
+"All input for the `submitPrintJob` mutation."
+input SubmitPrintJobInput {
+    "An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client."
+    clientMutationId: String
+    filename: String!
+    printConfig: PrintConfigInput!
+}
+
+"All input for the `topUp` mutation."
+input TopUpInput {
+    amount: Float!
+    "An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client."
+    clientMutationId: String
+    orderId: String!
+}
+
+"All input for the `updateCustomerByNodeId` mutation."
+input UpdateCustomerByNodeIdInput {
+    "An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client."
+    clientMutationId: String
+    "The globally unique `ID` which will identify a single `Customer` to be updated."
+    nodeId: ID!
+    "An object where the defined keys will be set on the `Customer` being updated."
+    patch: CustomerPatch!
+}
+
+"All input for the `updateCustomer` mutation."
+input UpdateCustomerInput {
+    "An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client."
+    clientMutationId: String
+    id: String!
+    "An object where the defined keys will be set on the `Customer` being updated."
+    patch: CustomerPatch!
+}
+
+"All input for the `updatePrintJobByNodeId` mutation."
+input UpdatePrintJobByNodeIdInput {
+    "An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client."
+    clientMutationId: String
+    "The globally unique `ID` which will identify a single `PrintJob` to be updated."
+    nodeId: ID!
+    "An object where the defined keys will be set on the `PrintJob` being updated."
+    patch: PrintJobPatch!
+}
+
+"All input for the `updatePrintJob` mutation."
+input UpdatePrintJobInput {
+    "An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client."
+    clientMutationId: String
+    id: Int!
+    "An object where the defined keys will be set on the `PrintJob` being updated."
+    patch: PrintJobPatch!
+}
+
+
+"A location in a connection that can be used for resuming pagination."
+scalar Cursor
+
+"A point in time as described by the [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) standard. May or may not include a timezone."
+scalar Datetime
