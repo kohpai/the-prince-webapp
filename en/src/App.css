@@ -1,0 +1,86 @@
+@import "~antd/dist/antd.css";
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+sup.origin {
+  top: -1.25em;
+  font-size: 0.45em;
+  font-weight: 300;
+}
+
+span.avoidwrap {
+  display: inline-block;
+}
+
+.info {
+  text-align: left;
+}
+
+.fill-display-width {
+  flex-grow: 1;
+}
+
+.padding-left-right {
+  padding: 0 1em;
+}
+
+.right-header {
+  text-align: right;
+}
+
+.padding-top {
+  padding-top: 1em;
+}
+
+.expand-space {
+  width: 100%;
+}
+
+.map-iframe {
+  border: 0;
+}
+
+.undo-info {
+  text-align: center;
+}
+
+.icon-contact-size {
+  font-size: 1.5em;
+}
