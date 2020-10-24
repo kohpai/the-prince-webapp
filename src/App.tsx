@@ -70,7 +70,7 @@ const App = () => {
                     <Switch>
                       {user && (
                         <Route path="/user">
-                          <UserAction healthStats={data && data.healthStats} />
+                          <UserAction healthStats={data?.healthStats} />
                         </Route>
                       )}
                       <Route path="/about">
@@ -79,7 +79,7 @@ const App = () => {
                       <Route path="/home">
                         <Home
                           loading={loading}
-                          healthStats={data && data.healthStats}
+                          healthStats={data?.healthStats}
                         />
                       </Route>
                       <Route path="/">
