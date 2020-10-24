@@ -61,8 +61,9 @@ const UserActionFlow = () => (
     </li>
     <li>
       Get your documents at Vogeliusweg 12/12.1.3, 33100 Paderborn. See the map
-      below. (Please try not to come after 23.00 and before 6.30, you can still
-      print the documents and get it later though!)
+      below. Please try not to come after 23.00 and before 6.30 (unless you
+      really need that document!), you can still print the documents and get it
+      later though.
     </li>
   </ol>
 );
