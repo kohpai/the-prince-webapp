@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "the-prince-de",
     "public": "build",
     "ignore": [
       "firebase.json",
