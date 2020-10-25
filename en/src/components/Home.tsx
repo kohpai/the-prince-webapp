@@ -1,5 +1,5 @@
 import React from "react";
-import { Col, Divider, Image, Row, Space, Table, Typography } from "antd";
+import { Col, Divider, Image, Row, Space, Table, Tabs, Typography } from "antd";
 
 import checkedImg from "../assets/checked.png";
 import minusImg from "../assets/minus.png";
@@ -22,26 +22,66 @@ interface HealthStatsRecord {
   checkedAt: Date;
 }
 
-const { Title, Paragraph } = Typography;
+interface PriceRecord {
+  key: string;
+  numPages: string;
+  blackCpp: string;
+  colorCpp: string;
+}
 
-const columns = [
+const { Title, Paragraph } = Typography;
+const { TabPane } = Tabs;
+
+const availabilityColumns = [
   {
     title: "Service Feature",
     dataIndex: "feature",
-    key: "feature",
   },
   {
     title: "Status",
     dataIndex: "status",
-    key: "status",
     render: (status: boolean) =>
       status ? <Image src={checkedImg} /> : <Image src={minusImg} />,
   },
   {
     title: "Last check",
     dataIndex: "checkedAt",
-    key: "checkedAt",
-    render: (date: Date) => date.toLocaleString(),
+    render: (date: Date) => date.toLocaleTimeString(),
+  },
+];
+
+const priceColumns = [
+  {
+    title: "Number of pages",
+    dataIndex: "numPages",
+  },
+  {
+    title: "Black & White (EUR per page)",
+    dataIndex: "blackCpp",
+    render: (cpp: string, _: any, index: number) =>
+      index === 1
+        ? {
+          children: cpp,
+          props: {
+            colSpan: 2,
+          },
+        }
+        : cpp,
+    align: "center" as const,
+  },
+  {
+    title: "Color (EUR per page)",
+    dataIndex: "colorCpp",
+    render: (cpp: string, _: any, index: number) =>
+      index === 1
+        ? {
+            children: cpp,
+            props: {
+              colSpan: 0,
+            },
+          }
+        : cpp,
+    align: "center" as const,
   },
 ];
 
@@ -97,8 +137,33 @@ const ServiceStatus = ({ healthStats }: ServiceStatusProps) => {
 
   return (
     <Table
-      columns={columns}
+      columns={availabilityColumns}
       dataSource={[server, printer, welcome]}
+      pagination={{ hideOnSinglePage: true }}
+    />
+  );
+};
+
+const PriceTable = () => {
+  const data: PriceRecord[] = [
+    {
+      key: "1",
+      numPages: "1-9 pages",
+      blackCpp: "0.50",
+      colorCpp: "0.80",
+    },
+    {
+      key: "2",
+      numPages: "10 or more pages",
+      blackCpp: "25% discount from total price",
+      colorCpp: "",
+    },
+  ];
+
+  return (
+    <Table
+      columns={priceColumns}
+      dataSource={data}
       pagination={{ hideOnSinglePage: true }}
     />
   );
@@ -122,9 +187,16 @@ export const Home = ({ healthStats, loading }: HomeProps) => {
         <Row>
           <Col span={24}>
             <Paragraph className="info">
-              <sup>1</sup>Please see the service realtime status here.
+              <sup>1</sup>Please see the service realtime status and price here.
             </Paragraph>
-            <ServiceStatus healthStats={healthStats} />
+            <Tabs defaultActiveKey="1">
+              <TabPane tab="Availability" key="1">
+                <ServiceStatus healthStats={healthStats} />
+              </TabPane>
+              <TabPane tab="Price" key="2">
+                <PriceTable />
+              </TabPane>
+            </Tabs>
           </Col>
         </Row>
         <Row>
