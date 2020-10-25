@@ -1,10 +1,9 @@
+import { Col, Divider, Image, Row, Space, Table, Typography } from "antd";
 import React from "react";
-import { Typography, Table, Row, Col, Space, Divider, Image } from "antd";
-
-import { Loading } from "./Loading";
-import { HealthStats } from "./commonTypes";
-import minusImg from "../assets/minus.png";
 import checkedImg from "../assets/checked.png";
+import minusImg from "../assets/minus.png";
+import { HealthStats } from "./commonTypes";
+import { Loading } from "./Loading";
 
 interface ServiceStatusProps {
   healthStats?: HealthStats;
@@ -60,10 +59,10 @@ const UserActionFlow = () => (
       Seiten auswählen)
     </li>
     <li>
-      Hol deine Dokumente am Vogeliusweg 12/12.1.3, 33100 Paderborn ab. Siehe
-      Karte unten. (Bitte probiere nicht nach 23 Uhr und nicht vor 6:30 Uhr zu
-      kommen. Du kannst die Dokumente natürlich schon ausdrucken, aber dann
-      später abholen.)
+      Hol deine Dokumente am <b>Vogeliusweg 12/12.1.3, 33100 Paderborn ab</b>.
+      Siehe Karte unten. (Bitte probiere nicht nach 23 Uhr und nicht vor 6:30
+      Uhr zu kommen. Du kannst die Dokumente natürlich schon ausdrucken, aber
+      dann später abholen.)
     </li>
   </ol>
 );

@@ -1,10 +1,9 @@
+import { Col, Divider, Image, Row, Space, Table, Typography } from "antd";
 import React from "react";
-import { Typography, Table, Row, Col, Space, Divider, Image } from "antd";
-
-import { Loading } from "./Loading";
-import { HealthStats } from "./commonTypes";
-import minusImg from "../assets/minus.png";
 import checkedImg from "../assets/checked.png";
+import minusImg from "../assets/minus.png";
+import { HealthStats } from "./commonTypes";
+import { Loading } from "./Loading";
 
 interface ServiceStatusProps {
   healthStats?: HealthStats;
@@ -60,10 +59,10 @@ const UserActionFlow = () => (
       well)
     </li>
     <li>
-      Get your documents at Vogeliusweg 12/12.1.3, 33100 Paderborn. See the map
-      below. Please try not to come after 23.00 and before 6.30 (unless you
-      really need that document!), you can still print the documents and get it
-      later though.
+      Get your documents at <b>Vogeliusweg 12/12.1.3, 33100 Paderborn</b>. See
+      the map below. Please try not to come after 23.00 and before 6.30 (unless
+      you really need that document!), you can still print the documents and get
+      it later though.
     </li>
   </ol>
 );
