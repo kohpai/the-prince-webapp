@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Divider, Image, Row, Space, Table, Tabs, Typography } from "antd";
 
 import checkedImg from "../assets/checked.png";
 import minusImg from "../assets/minus.png";
 import { HealthStats } from "./commonTypes";
 import { Loading } from "./Loading";
+import { remoteConfig } from "../lib/firebase";
 
 interface ServiceStatusProps {
   healthStats?: HealthStats;
@@ -61,11 +62,11 @@ const priceColumns = [
     render: (cpp: string, _: any, index: number) =>
       index === 1
         ? {
-          children: cpp,
-          props: {
-            colSpan: 2,
-          },
-        }
+            children: cpp,
+            props: {
+              colSpan: 2,
+            },
+          }
         : cpp,
     align: "center" as const,
   },
@@ -145,17 +146,35 @@ const ServiceStatus = ({ healthStats }: ServiceStatusProps) => {
 };
 
 const PriceTable = () => {
+  const [price, setPrice] = useState({
+    blackCpp: "0.00",
+    colorCpp: "0.00",
+    discount: "0",
+  });
+
+  useEffect(() => {
+    const main = async () => {
+      await remoteConfig.fetchAndActivate();
+      setPrice({
+        blackCpp: remoteConfig.getString("black_cpp"),
+        colorCpp: remoteConfig.getString("color_cpp"),
+        discount: remoteConfig.getString("discount_percentage"),
+      });
+    };
+    main();
+  }, []);
+
   const data: PriceRecord[] = [
     {
       key: "1",
       numPages: "1-9 pages",
-      blackCpp: "0.50",
-      colorCpp: "0.80",
+      blackCpp: price.blackCpp,
+      colorCpp: price.colorCpp,
     },
     {
       key: "2",
       numPages: "10 or more pages",
-      blackCpp: "25% discount from total price",
+      blackCpp: `${price.discount}% discount from total price`,
       colorCpp: "",
     },
   ];

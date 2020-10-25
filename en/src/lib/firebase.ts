@@ -1,6 +1,7 @@
 import firebase from "firebase/app";
 import "firebase/analytics";
 import "firebase/auth";
+import "firebase/remote-config";
 
 const firebaseConfig = {
   apiKey: "AIzaSyD0qS5DIJRKG32n9K64Le_RrONiDM8WNic",
@@ -16,4 +17,13 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 
+const remoteConfig = firebase.remoteConfig();
+remoteConfig.settings.fetchTimeoutMillis = 10000;
+remoteConfig.defaultConfig = {
+  black_cpp: "0.50",
+  color_cpp: "0.80",
+  discount_percentage: "25",
+};
+
 export default firebase;
+export { firebase, remoteConfig };
