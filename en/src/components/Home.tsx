@@ -1,5 +1,6 @@
-import { Col, Divider, Image, Row, Space, Table, Typography } from "antd";
 import React from "react";
+import { Col, Divider, Image, Row, Space, Table, Typography } from "antd";
+
 import checkedImg from "../assets/checked.png";
 import minusImg from "../assets/minus.png";
 import { HealthStats } from "./commonTypes";

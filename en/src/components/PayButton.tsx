@@ -39,8 +39,8 @@ export const PayButton = ({ amount, onBalanceUpdate }: PayProps) => {
             mutationResult = await topUp({
               variables: {
                 orderId: orderID,
-                amount: parseFloat(amount.toString())
-              }
+                amount: parseFloat(amount.toString()),
+              },
             });
           } catch (err) {
             setLoading(false);
@@ -66,7 +66,7 @@ export const PayButton = ({ amount, onBalanceUpdate }: PayProps) => {
         }}
         options={{
           currency: config.paypal.CURRENCY,
-          clientId: config.paypal.CLIENT_ID
+          clientId: config.paypal.CLIENT_ID,
         }}
       />
       <Loading
