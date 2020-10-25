@@ -9,8 +9,4 @@ export default {
   logrocket: {
     APP_ID: process.env.LOGROCKET_APP_ID || "vpk2hy/the-prince",
   },
-  printer: {
-    BLACK_CPP: 0.5,
-    COLOR_CPP: 0.8,
-  },
 };

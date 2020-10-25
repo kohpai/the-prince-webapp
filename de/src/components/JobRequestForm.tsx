@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   InputNumber,
   Form,
@@ -15,13 +15,13 @@ import {
   PrinterOutlined,
   UploadOutlined,
 } from "@ant-design/icons";
-import firebase from "firebase";
 import Big from "big.js";
 
 import config from "../config";
 import { gql, useMutation } from "@apollo/client";
 import { Loading } from "./Loading";
 import { HealthStats, PrintJob } from "./commonTypes";
+import { firebase, remoteConfig } from "../lib/firebase";
 
 interface PrintConfig {
   colorMode: "BLACK" | "COLOR";
@@ -35,9 +35,17 @@ interface PrintPrice {
   price: Big;
 }
 
+interface PriceConfig {
+  blackCpp: number;
+  colorCpp: number;
+  discountRatio: number;
+}
+
 interface JobRequestFormProps {
   healthStats?: HealthStats;
+
   onBalanceUpdate?(balance: Big): void;
+
   onNewPrintJob?(printJob: PrintJob): void;
 }
 
@@ -45,10 +53,7 @@ const { Option } = Select;
 const { Title } = Typography;
 
 const SUBMIT_PRINT_JOB = gql`
-  mutation SubmitPrintJob(
-    $filename: String!
-    $printConfig: PrintConfigInput!
-  ) {
+  mutation SubmitPrintJob($filename: String!, $printConfig: PrintConfigInput!) {
     submitPrintJob(input: { filename: $filename, printConfig: $printConfig }) {
       printJob {
         id
@@ -62,15 +67,16 @@ const SUBMIT_PRINT_JOB = gql`
   }
 `;
 
-function calculatePrintPrice(pc: PrintConfig): Big {
+function calculatePrintPrice(pc: PrintConfig, priceConfig: PriceConfig): Big {
   const numPages = pc.pageRange ? parsePageRange(pc.pageRange) : pc.numPages;
-  return new Big(
-    pc.colorMode === "BLACK"
-      ? config.printer.BLACK_CPP
-      : config.printer.COLOR_CPP
-  )
-    .times(numPages)
-    .times(pc.numCopies);
+  const printingPages = numPages * pc.numCopies;
+  const total = new Big(
+    pc.colorMode === "BLACK" ? priceConfig.blackCpp : priceConfig.colorCpp
+  ).times(printingPages);
+
+  return printingPages >= 10
+    ? total.times(new Big(1).minus(priceConfig.discountRatio))
+    : total;
 }
 
 function parsePageRange(pr: string): number {
@@ -115,6 +121,11 @@ export const JobRequestForm = ({
       numCopies: 1,
     },
     price: new Big(0),
+  });
+  const [priceConfig, setPriceConfig] = useState<PriceConfig>({
+    blackCpp: 0,
+    colorCpp: 0,
+    discountRatio: 0,
   });
   const [loading, setLoading] = useState(false);
 
@@ -165,6 +176,18 @@ export const JobRequestForm = ({
       signedInUser ? setUser(signedInUser) : setUser(null)
     );
 
+  useEffect(() => {
+    const main = async () => {
+      await remoteConfig.fetchAndActivate();
+      setPriceConfig({
+        blackCpp: remoteConfig.getNumber("black_cpp"),
+        colorCpp: remoteConfig.getNumber("color_cpp"),
+        discountRatio: remoteConfig.getNumber("discount_percentage") / 100,
+      });
+    };
+    main();
+  }, []);
+
   return (
     <>
       <Form
@@ -203,7 +226,7 @@ export const JobRequestForm = ({
                 };
                 setPrincePrice({
                   config: printConfig,
-                  price: calculatePrintPrice(printConfig),
+                  price: calculatePrintPrice(printConfig, priceConfig),
                 });
               }
             }}
@@ -221,7 +244,7 @@ export const JobRequestForm = ({
               const printConfig = { ...printPrice.config, colorMode: value };
               setPrincePrice({
                 config: printConfig,
-                price: calculatePrintPrice(printConfig),
+                price: calculatePrintPrice(printConfig, priceConfig),
               });
             }}
             disabled={!printerConnected}
@@ -260,7 +283,7 @@ export const JobRequestForm = ({
                 };
                 setPrincePrice({
                   config: printConfig,
-                  price: calculatePrintPrice(printConfig),
+                  price: calculatePrintPrice(printConfig, priceConfig),
                 });
               } catch {}
             }}
@@ -279,7 +302,7 @@ export const JobRequestForm = ({
               };
               setPrincePrice({
                 config: printConfig,
-                price: calculatePrintPrice(printConfig),
+                price: calculatePrintPrice(printConfig, priceConfig),
               });
             }}
             disabled={!printerConnected}

@@ -1,9 +1,11 @@
-import { Col, Divider, Image, Row, Space, Table, Typography } from "antd";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Col, Divider, Image, Row, Space, Table, Tabs, Typography } from "antd";
+
 import checkedImg from "../assets/checked.png";
 import minusImg from "../assets/minus.png";
 import { HealthStats } from "./commonTypes";
 import { Loading } from "./Loading";
+import { remoteConfig } from "../lib/firebase";
 
 interface ServiceStatusProps {
   healthStats?: HealthStats;
@@ -21,27 +23,67 @@ interface HealthStatsRecord {
   checkedAt: Date;
 }
 
-const { Title, Paragraph } = Typography;
+interface PriceRecord {
+  key: string;
+  numPages: string;
+  blackCpp: string;
+  colorCpp: string;
+}
 
-const columns = [
+const { Title, Paragraph } = Typography;
+const { TabPane } = Tabs;
+
+const availabilityColumns = [
   {
     title: "Service Feature",
-    dataIndex: "feature",
-    key: "feature",
+    dataIndex: "feature"
   },
   {
     title: "Status",
     dataIndex: "status",
-    key: "status",
     render: (status: boolean) =>
-      status ? <Image src={checkedImg} /> : <Image src={minusImg} />,
+      status ? <Image src={checkedImg} /> : <Image src={minusImg} />
   },
   {
     title: "Zuletzt überprüft",
     dataIndex: "checkedAt",
-    key: "checkedAt",
-    render: (date: Date) => date.toLocaleString(),
+    render: (date: Date) => date.toLocaleString()
+  }
+];
+
+const priceColumns = [
+  {
+    title: "Seitenzahl",
+    dataIndex: "numPages"
   },
+  {
+    title: "Schwarz & Weiß (EUR pro Seite)",
+    dataIndex: "blackCpp",
+    render: (cpp: string, _: any, index: number) =>
+      index === 1
+        ? {
+          children: cpp,
+          props: {
+            colSpan: 2
+          }
+        }
+        : cpp,
+    align: "center" as const
+  },
+  {
+    title: "Farbe (EUR pro Seite)",
+    dataIndex: "colorCpp",
+    render: (cpp: string, _: any, index: number) =>
+      index === 1
+        ? {
+          children: cpp,
+          props: {
+            colSpan: 0
+          }
+        }
+        : cpp,
+    align: "center" as const
+  }
 ];
 
 const UserActionFlow = () => (
@@ -73,19 +115,19 @@ const ServiceStatus = ({ healthStats }: ServiceStatusProps) => {
     key: "1",
     feature: "Druckserver ist online",
     status: false,
-    checkedAt: now,
+    checkedAt: now
   };
   const printer: HealthStatsRecord = {
     key: "2",
     feature: "Drucker ist verbunden",
     status: false,
-    checkedAt: now,
+    checkedAt: now
   };
   const welcome: HealthStatsRecord = {
     key: "3",
     feature: "Kann ich die Dokumente jetzt abholen?",
     status: false,
-    checkedAt: now,
+    checkedAt: now
   };
 
   if (healthStats) {
@@ -96,8 +138,51 @@ const ServiceStatus = ({ healthStats }: ServiceStatusProps) => {
 
   return (
     <Table
-      columns={columns}
+      columns={availabilityColumns}
       dataSource={[server, printer, welcome]}
+      pagination={{ hideOnSinglePage: true }}
+    />
+  );
+};
+
+const PriceTable = () => {
+  const [price, setPrice] = useState({
+    blackCpp: "0.00",
+    colorCpp: "0.00",
+    discount: "0",
+  });
+
+  useEffect(() => {
+    const main = async () => {
+      await remoteConfig.fetchAndActivate();
+      setPrice({
+        blackCpp: remoteConfig.getString("black_cpp"),
+        colorCpp: remoteConfig.getString("color_cpp"),
+        discount: remoteConfig.getString("discount_percentage"),
+      });
+    };
+    main();
+  }, []);
+
+  const data: PriceRecord[] = [
+    {
+      key: "1",
+      numPages: "1-9 Seiten",
+      blackCpp: price.blackCpp,
+      colorCpp: price.colorCpp,
+    },
+    {
+      key: "2",
+      numPages: "10 oder mehr Seiten",
+      blackCpp: `${price.discount}% Rabatt auf den Gesamtpreis`,
+      colorCpp: ""
+    }
+  ];
+
+  return (
+    <Table
+      columns={priceColumns}
+      dataSource={data}
       pagination={{ hideOnSinglePage: true }}
     />
   );
@@ -125,7 +210,14 @@ export const Home = ({ healthStats, loading }: HomeProps) => {
             <Paragraph className="info">
               <sup>1</sup>Den Echtzeitstatus des Dienstes findest du hier.
             </Paragraph>
-            <ServiceStatus healthStats={healthStats} />
+            <Tabs defaultActiveKey="1">
+              <TabPane tab="Verfügbarkeit" key="1">
+                <ServiceStatus healthStats={healthStats} />
+              </TabPane>
+              <TabPane tab="Preis" key="2">
+                <PriceTable />
+              </TabPane>
+            </Tabs>
           </Col>
         </Row>
         <Row>
