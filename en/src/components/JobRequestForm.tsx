@@ -69,11 +69,10 @@ const SUBMIT_PRINT_JOB = gql`
 
 function calculatePrintPrice(pc: PrintConfig, priceConfig: PriceConfig): Big {
   const numPages = pc.pageRange ? parsePageRange(pc.pageRange) : pc.numPages;
-  const printingPages = numPages * pc.numCopies
+  const printingPages = numPages * pc.numCopies;
   const total = new Big(
     pc.colorMode === "BLACK" ? priceConfig.blackCpp : priceConfig.colorCpp
-  )
-    .times(printingPages)
+  ).times(printingPages);
 
   return printingPages >= 10
     ? total.times(new Big(1).minus(priceConfig.discountRatio))
