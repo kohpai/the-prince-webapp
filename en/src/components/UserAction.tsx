@@ -6,6 +6,7 @@ import { gql, useMutation } from "@apollo/client";
 import { Balance } from "./Balance";
 import { JobRequestForm } from "./JobRequestForm";
 import { HealthStats, PrintJob } from "./commonTypes";
+import LeftRightMargin from "./LeftRightMargin";
 
 interface UserActionProps {
   healthStats?: HealthStats;
@@ -88,51 +89,53 @@ export const UserAction = ({ healthStats }: UserActionProps) => {
   }, [currentUser, healthStats]);
 
   return (
-    <Space className="info expand-space" direction="vertical" size="small">
-      <Balance
-        healthStats={healthStats}
-        balance={balance}
-        onBalanceUpdate={(b) => {
-          setBalance(b);
-          message.success("Your balance is adjusted.", 3);
-        }}
-      />
-      <Divider orientation="left">
-        {healthStats && healthStats.printerConnected ? (
-          <Title level={4}>Submit a print job</Title>
-        ) : (
-          <Popover
-            content={
-              <Paragraph>
-                You cannot submit a print job while no printer connected{" "}
-                <span role="img" aria-label="grinning-face">
-                  😞
-                </span>
-                . Please check the status in Home page and try again.
-              </Paragraph>
-            }
-            title="Printer is not connected"
-            trigger={["click", "hover"]}
-          >
+    <LeftRightMargin>
+      <Space className="info expand-space" direction="vertical" size="small">
+        <Balance
+          healthStats={healthStats}
+          balance={balance}
+          onBalanceUpdate={(b) => {
+            setBalance(b);
+            message.success("Your balance is adjusted.", 3);
+          }}
+        />
+        <Divider orientation="left">
+          {healthStats && healthStats.printerConnected ? (
             <Title level={4}>Submit a print job</Title>
-          </Popover>
-        )}
-      </Divider>
-      <JobRequestForm
-        healthStats={healthStats}
-        onBalanceUpdate={(b) => {
-          setBalance(b);
-          message.success("Your balance is adjusted.", 3);
-        }}
-        onNewPrintJob={(job) => {
-          updatePrintJobs([{ ...job, key: `${job.id}` }].concat(printJobs));
-          message.success("New job is added. Check out below.", 3);
-        }}
-      />
-      <Divider orientation="left">
-        <Title level={4}>Jobs</Title>
-      </Divider>
-      <Table columns={columns} dataSource={printJobs} />
-    </Space>
+          ) : (
+            <Popover
+              content={
+                <Paragraph>
+                  You cannot submit a print job while no printer connected{" "}
+                  <span role="img" aria-label="grinning-face">
+                    😞
+                  </span>
+                  . Please check the status in Home page and try again.
+                </Paragraph>
+              }
+              title="Printer is not connected"
+              trigger={["click", "hover"]}
+            >
+              <Title level={4}>Submit a print job</Title>
+            </Popover>
+          )}
+        </Divider>
+        <JobRequestForm
+          healthStats={healthStats}
+          onBalanceUpdate={(b) => {
+            setBalance(b);
+            message.success("Your balance is adjusted.", 3);
+          }}
+          onNewPrintJob={(job) => {
+            updatePrintJobs([{ ...job, key: `${job.id}` }].concat(printJobs));
+            message.success("New job is added. Check out below.", 3);
+          }}
+        />
+        <Divider orientation="left">
+          <Title level={4}>Jobs</Title>
+        </Divider>
+        <Table columns={columns} dataSource={printJobs} />
+      </Space>
+    </LeftRightMargin>
   );
 };

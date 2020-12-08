@@ -6,6 +6,7 @@ import minusImg from "../assets/minus.png";
 import { HealthStats } from "./commonTypes";
 import { Loading } from "./Loading";
 import { remoteConfig } from "../lib/firebase";
+import LeftRightMargin from "./LeftRightMargin";
 
 interface ServiceStatusProps {
   healthStats?: HealthStats;
@@ -190,7 +191,7 @@ const PriceTable = () => {
 
 export const Home = ({ healthStats, loading }: HomeProps) => {
   return (
-    <>
+    <LeftRightMargin>
       <Space className="expand-space" direction="vertical" size="large">
         <Row>
           <Col span={24}>
@@ -239,6 +240,6 @@ export const Home = ({ healthStats, loading }: HomeProps) => {
         loading={loading}
         text="Please wait while we're checking the service's status."
       />
-    </>
+    </LeftRightMargin>
   );
 };

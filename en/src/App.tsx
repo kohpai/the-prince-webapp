@@ -64,31 +64,22 @@ const App = () => {
                 </Header>
               </Affix>
               <Content className="padding-top">
-                <Row>
-                  <Col span={1} />
-                  <Col span={22}>
-                    <Switch>
-                      {user && (
-                        <Route path="/user">
-                          <UserAction healthStats={data?.healthStats} />
-                        </Route>
-                      )}
-                      <Route path="/about">
-                        <About />
-                      </Route>
-                      <Route path="/home">
-                        <Home
-                          loading={loading}
-                          healthStats={data?.healthStats}
-                        />
-                      </Route>
-                      <Route path="/">
-                        <Redirect to="/home" />
-                      </Route>
-                    </Switch>
-                  </Col>
-                  <Col span={1} />
-                </Row>
+                <Switch>
+                  {user && (
+                    <Route path="/user">
+                      <UserAction healthStats={data?.healthStats} />
+                    </Route>
+                  )}
+                  <Route path="/about">
+                    <About />
+                  </Route>
+                  <Route path="/home">
+                    <Home loading={loading} healthStats={data?.healthStats} />
+                  </Route>
+                  <Route path="/">
+                    <Redirect to="/home" />
+                  </Route>
+                </Switch>
               </Content>
               <Footer className="info">
                 <Divider />
