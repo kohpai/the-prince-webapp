@@ -63,7 +63,7 @@ const App = () => {
                   </Row>
                 </Header>
               </Affix>
-              <Content className="padding-top">
+              <Content>
                 <Switch>
                   {user && (
                     <Route path="/user">
