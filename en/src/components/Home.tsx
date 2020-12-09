@@ -1,8 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { Col, Divider, Image, Row, Space, Table, Tabs, Typography } from "antd";
+import {
+  Button,
+  Col,
+  Divider,
+  Image,
+  Row,
+  Space,
+  Table,
+  Tabs,
+  Typography,
+} from "antd";
 
 import checkedImg from "../assets/checked.png";
 import minusImg from "../assets/minus.png";
+import bgImg from "../assets/denise-bossarte.jpg";
 import { HealthStats } from "./commonTypes";
 import { Loading } from "./Loading";
 import { remoteConfig } from "../lib/firebase";
@@ -31,7 +42,7 @@ interface PriceRecord {
   colorCpp: string;
 }
 
-const { Title, Paragraph } = Typography;
+const { Title, Paragraph, Text } = Typography;
 const { TabPane } = Tabs;
 
 const availabilityColumns = [
@@ -191,55 +202,79 @@ const PriceTable = () => {
 
 export const Home = ({ healthStats, loading }: HomeProps) => {
   return (
-    <LeftRightMargin>
-      <Space className="expand-space" direction="vertical" size="large">
-        <Row>
-          <Col span={24}>
-            <Title level={3}>
-              <span className="avoidwrap">Print your documents,&nbsp;</span>
+    <>
+      <Row>
+        <Col
+          span={24}
+          style={{
+            height: "160px",
+            backgroundImage: `url(${bgImg})`,
+            backgroundPosition: "center",
+            paddingTop: "40px",
+          }}
+        >
+          <Button>Sign Up Now!</Button>
+          <div style={{ marginTop: "10px" }}>
+            <Text strong style={{ color: "whitesmoke" }}>
               <span className="avoidwrap">
-                available for 24 hours<sup className="origin">1</sup>!
+                And upload your docs for free!&nbsp;
               </span>
-            </Title>
-            <UserActionFlow />
-          </Col>
-        </Row>
-        <Row>
-          <Col span={24}>
-            <Paragraph className="info">
-              <sup>1</sup>Please see the service realtime status and price here.
-            </Paragraph>
-            <Tabs defaultActiveKey="1">
-              <TabPane tab="Availability" key="1">
-                <ServiceStatus healthStats={healthStats} />
-              </TabPane>
-              <TabPane tab="Price" key="2">
-                <PriceTable />
-              </TabPane>
-            </Tabs>
-          </Col>
-        </Row>
-        <Row>
-          <Col className="info" span={24}>
-            <Divider orientation="left">
-              <Title level={4}>Pick it up here!</Title>
-            </Divider>
-            <iframe
-              className="map-iframe"
-              width="100%"
-              height="450"
-              title="gmaps"
-              src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCdAgrKsZH0EVltMS1uOE6sJxIZzB4H1X8&q=The+Prince:+24-Stunden+Druckservice"
-              allowFullScreen={true}
-            />
-          </Col>
-        </Row>
-      </Space>
+              <span className="avoidwrap">Pay after you get the copies!</span>
+            </Text>
+          </div>
+        </Col>
+      </Row>
+      <LeftRightMargin>
+        <Space className="expand-space" direction="vertical" size="large">
+          <Row>
+            <Col span={24}>
+              <Title level={3}>
+                <span className="avoidwrap">Print your documents,&nbsp;</span>
+                <span className="avoidwrap">
+                  available for 24 hours<sup className="origin">1</sup>!
+                </span>
+              </Title>
+              <UserActionFlow />
+            </Col>
+          </Row>
+          <Row>
+            <Col span={24}>
+              <Paragraph className="info">
+                <sup>1</sup>Please see the service realtime status and price
+                here.
+              </Paragraph>
+              <Tabs defaultActiveKey="1">
+                <TabPane tab="Availability" key="1">
+                  <ServiceStatus healthStats={healthStats} />
+                </TabPane>
+                <TabPane tab="Price" key="2">
+                  <PriceTable />
+                </TabPane>
+              </Tabs>
+            </Col>
+          </Row>
+          <Row>
+            <Col className="info" span={24}>
+              <Divider orientation="left">
+                <Title level={4}>Pick it up here!</Title>
+              </Divider>
+              <iframe
+                className="map-iframe"
+                width="100%"
+                height="450"
+                title="gmaps"
+                src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCdAgrKsZH0EVltMS1uOE6sJxIZzB4H1X8&q=The+Prince:+24-Stunden+Druckservice"
+                allowFullScreen={true}
+              />
+            </Col>
+          </Row>
+        </Space>
+      </LeftRightMargin>
       <Loading
         title="Checking service"
         loading={loading}
         text="Please wait while we're checking the service's status."
       />
-    </LeftRightMargin>
+    </>
   );
 };
