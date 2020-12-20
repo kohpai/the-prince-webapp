@@ -1,4 +1,4 @@
-export default {
+const config = {
   API_URL: process.env.REACT_APP_API_URL || "https://localhost:8443",
   paypal: {
     CLIENT_ID:
@@ -10,3 +10,5 @@ export default {
     APP_ID: process.env.LOGROCKET_APP_ID || "vpk2hy/the-prince",
   },
 };
+
+export default config;
