@@ -14,10 +14,12 @@ import {
 import checkedImg from "../assets/checked.png";
 import minusImg from "../assets/minus.png";
 import bgImg from "../assets/denise-bossarte.jpg";
+
 import { HealthStats } from "./commonTypes";
 import { Loading } from "./Loading";
 import { remoteConfig } from "../lib/firebase";
 import LeftRightMargin from "./LeftRightMargin";
+import AuthModal from "./AuthModal";
 
 interface ServiceStatusProps {
   healthStats?: HealthStats;
@@ -201,6 +203,8 @@ const PriceTable = () => {
 };
 
 export const Home = ({ healthStats, loading }: HomeProps) => {
+  const [modalVisibility, setModalVisibility] = useState(false);
+
   return (
     <>
       <Row>
@@ -213,7 +217,13 @@ export const Home = ({ healthStats, loading }: HomeProps) => {
             paddingTop: "40px",
           }}
         >
-          <Button>Sign Up Now!</Button>
+          <Button
+            onClick={() => {
+              setModalVisibility(true);
+            }}
+          >
+            Sign Up Now!
+          </Button>
           <div style={{ marginTop: "10px" }}>
             <Text strong style={{ color: "whitesmoke" }}>
               <span className="avoidwrap">
@@ -274,6 +284,13 @@ export const Home = ({ healthStats, loading }: HomeProps) => {
         title="Checking service"
         loading={loading}
         text="Please wait while we're checking the service's status."
+      />
+      <AuthModal
+        isVisible={modalVisibility}
+        onAuthenticate={() => {}}
+        onClose={() => {
+          setModalVisibility(false);
+        }}
       />
     </>
   );
