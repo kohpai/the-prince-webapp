@@ -35,12 +35,18 @@ export const ContactIcons = () => (
     </a>
     <a
       className="icon-contact-size"
-      href="tel:+4917635517262"
+      href="https://wa.me/message/OUFOSTYCAFZGK1"
       target="_blank"
       rel="noopener noreferrer"
     >
       <WhatsAppOutlined />
     </a>
-    +4917635517262
+    <a
+      href="tel:+4917635517262"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      +4917635517262
+    </a>
   </Space>
 );
