@@ -1,24 +1,28 @@
 import React, { FunctionComponent } from "react";
+import { useSelector, useDispatch } from "react-redux";
+
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import { Modal } from "antd";
 
 import firebase from "../lib/firebase";
+import { State, Action } from "../lib/authModalStore";
+import { Dispatch } from "redux";
 
-interface Props {
-  isVisible: boolean
-  onAuthenticate(): void
-  onClose(): void
-}
+const AuthModal: FunctionComponent = () => {
+  const visibility = useSelector((state: State) => state.isVisible);
+  const dispatch = useDispatch<Dispatch<Action>>();
 
-const AuthModal: FunctionComponent<Props> = ({isVisible, onAuthenticate, onClose}) => {
+  const closeModal = () => {
+    dispatch({ type: "AUTHMODAL_CLOSE" });
+  };
 
   return (
     <Modal
       className="undo-info"
       title="Sign up / sign in"
-      visible={isVisible}
-      onOk={onClose}
-      onCancel={onClose}
+      visible={visibility}
+      onOk={closeModal}
+      onCancel={closeModal}
       okButtonProps={{ hidden: true }}
       cancelButtonProps={{ hidden: true }}
     >
@@ -42,8 +46,7 @@ const AuthModal: FunctionComponent<Props> = ({isVisible, onAuthenticate, onClose
           ],
           callbacks: {
             signInSuccessWithAuthResult: () => {
-              onAuthenticate();
-              onClose();
+              closeModal();
               return false;
             },
           },
@@ -57,7 +60,7 @@ const AuthModal: FunctionComponent<Props> = ({isVisible, onAuthenticate, onClose
           </em>
         </Paragraph> */}
     </Modal>
-  )
-}
+  );
+};
 
-export default AuthModal
+export default AuthModal;

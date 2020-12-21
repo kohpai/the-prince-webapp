@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { Dispatch } from "redux";
+import { useDispatch } from "react-redux";
 import {
   Button,
   Col,
@@ -18,8 +20,8 @@ import bgImg from "../assets/denise-bossarte.jpg";
 import { HealthStats } from "./commonTypes";
 import { Loading } from "./Loading";
 import { remoteConfig } from "../lib/firebase";
+import { Action } from "../lib/authModalStore";
 import LeftRightMargin from "./LeftRightMargin";
-import AuthModal from "./AuthModal";
 
 interface ServiceStatusProps {
   healthStats?: HealthStats;
@@ -203,7 +205,7 @@ const PriceTable = () => {
 };
 
 export const Home = ({ healthStats, loading }: HomeProps) => {
-  const [modalVisibility, setModalVisibility] = useState(false);
+  const dispatch = useDispatch<Dispatch<Action>>();
 
   return (
     <>
@@ -219,7 +221,7 @@ export const Home = ({ healthStats, loading }: HomeProps) => {
         >
           <Button
             onClick={() => {
-              setModalVisibility(true);
+              dispatch({ type: "AUTHMODAL_OPEN" });
             }}
           >
             Sign Up Now!
@@ -284,13 +286,6 @@ export const Home = ({ healthStats, loading }: HomeProps) => {
         title="Checking service"
         loading={loading}
         text="Please wait while we're checking the service's status."
-      />
-      <AuthModal
-        isVisible={modalVisibility}
-        onAuthenticate={() => {}}
-        onClose={() => {
-          setModalVisibility(false);
-        }}
       />
     </>
   );

@@ -20,6 +20,7 @@ import {
 } from "./components";
 
 import "./App.css";
+import AuthModal from "./components/AuthModal";
 
 const { Header, Content, Footer } = Layout;
 
@@ -85,6 +86,7 @@ const App = () => {
                 <Divider />
                 Contact us:&nbsp; <ContactIcons />
               </Footer>
+              <AuthModal />
             </Layout>
           </Col>
           <Col md={6} />

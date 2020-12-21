@@ -1,17 +1,21 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { ApolloProvider } from "@apollo/client";
+import { Provider } from "react-redux";
 
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import apolloClient from "./lib/apollo";
 import "./lib/logrocket";
+import store from "./lib/authModalStore";
 
 ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={apolloClient}>
-      <App />
+      <Provider store={store}>
+        <App />
+      </Provider>
     </ApolloProvider>
   </React.StrictMode>,
   document.getElementById("root")

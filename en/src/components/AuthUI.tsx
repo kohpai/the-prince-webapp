@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { Dispatch } from "redux";
+import { useDispatch } from "react-redux";
+
 import { Button, Dropdown, Menu } from "antd";
 import {
   LogoutOutlined,
@@ -8,12 +11,12 @@ import {
 import { Link, Redirect } from "react-router-dom";
 
 import firebase from "../lib/firebase";
-import AuthModal from "./AuthModal";
+import { Action } from "../lib/authModalStore";
 
 export const AuthUI = () => {
-  const [modalVisibility, setModalVisibility] = useState(false);
   const [user, setUser] = useState<firebase.User | null>(null);
   const [redirecting, setRedirecting] = useState(false);
+  const dispatch = useDispatch<Dispatch<Action>>();
 
   firebase
     .auth()
@@ -56,20 +59,11 @@ export const AuthUI = () => {
       <Button
         type="primary"
         onClick={() => {
-          setModalVisibility(true);
+          dispatch({ type: "AUTHMODAL_OPEN" });
         }}
       >
         <UserOutlined /> Sign up / sign in
       </Button>
-      <AuthModal
-        isVisible={modalVisibility}
-        onAuthenticate={() => {
-          setRedirecting(true);
-        }}
-        onClose={() => {
-          setModalVisibility(false);
-        }}
-      />
     </>
   );
 };
