@@ -25,8 +25,6 @@ export const AuthUI = () => {
     );
 
   return user ? (
-    <>
-      {redirecting && <Redirect to="/user" />}
       <Dropdown
         placement="bottomRight"
         trigger={["click"]}
@@ -52,7 +50,6 @@ export const AuthUI = () => {
           <UserOutlined /> {user.displayName}
         </Button>
       </Dropdown>
-    </>
   ) : (
     <>
       {redirecting && <Redirect to="/home" />}
